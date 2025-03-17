@@ -235,7 +235,7 @@ class DreameMowerDreameHomeCloudProtocol:
                         _LOGGER.info("Connecting to the device client")
                         try:
                             host = self._host.split(":")
-                            self._client = Client(
+                            self._client = mqtt_client.Client(
                                 mqtt_client.CallbackAPIVersion.VERSION1,
                                 f"{self._strings[53]}{self._uid}{self._strings[54]}{DreameMowerMiHomeCloudProtocol.get_random_agent_id()}{self._strings[54]}{host[0]}",
                                 clean_session=True,
@@ -250,7 +250,8 @@ class DreameMowerDreameHomeCloudProtocol:
                             self._set_client_key()
                             self._client.connect(host[0], int(host[1]), 50)
                             self._client.loop_start()
-                        except:
+                        except Exception as e:
+                            _LOGGER.error("Connect failed. error: %s", e)
                             pass
                     elif not self._client_connected:
                         self._set_client_key()
