@@ -194,7 +194,6 @@ class DreameMowerFlowHandler(ConfigFlow, domain=DOMAIN):
         if self.prefer_cloud or (self.token and len(self.token) == 32):
             try:
                 if self.protocol is None:
-                    if self.account_type == "dreame":
                         self.protocol = DreameMowerProtocol(
                             self.host,
                             self.token,
