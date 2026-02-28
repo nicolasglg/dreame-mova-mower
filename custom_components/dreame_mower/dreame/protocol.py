@@ -359,7 +359,7 @@ class DreameMowerDreameHomeCloudProtocol:
                     }
                 else:
                     _LOGGER.warning(
-                        "Get Device OTC Info Retrying with fallback... (%s)", response)
+                        "Get Device OTC Info empty, trying fallback... (%s)", response)
                     devices = self.get_devices()
                     if devices is not None:
                         found = list(
@@ -371,8 +371,9 @@ class DreameMowerDreameHomeCloudProtocol:
                         if len(found) > 0:
                             self._handle_device_info(found[0])
                             return found[0]
-                    _LOGGER.error("Get Device OTC Info Failed!")
-                    return None
+                    _LOGGER.warning(
+                        "Get Device OTC Info fallback failed, proceeding with basic device info")
+                    return data
             return data
         return None
 
@@ -1279,9 +1280,9 @@ class DreameMowerProtocol:
             response = self.device_cloud.send(
                 method, parameters=parameters, retry_count=retry_count)
             if response is None:
-                self._connected = False
-                raise DeviceException(
-                    "Unable to discover the device over cloud") from None
+                _LOGGER.warning(
+                    "Cloud request returned None for %s (device may be in standby)", method)
+                return None
             self._connected = True
             return response
 

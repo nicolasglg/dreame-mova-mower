@@ -526,6 +526,9 @@ class DreameMowerDevice:
             if result is not None:
                 results.extend(result)
                 props[:] = props[15:]
+            else:
+                _LOGGER.warning("Cloud property request failed, skipping remaining properties")
+                break
 
         return self._handle_properties(results)
 
