@@ -33,7 +33,6 @@ from .dreame import (
     DreameMowerStreamStatus,
 )
 from .dreame.const import ATTR_VALUE
-from .dreame.types import ATTR_ZONE_ID, ATTR_ZONE_ICON
 
 from .coordinator import DreameMowerDataUpdateCoordinator
 from .entity import DreameMowerEntity, DreameMowerEntityDescription
@@ -64,15 +63,6 @@ SENSORS: tuple[DreameMowerSensorEntityDescription, ...] = (
         property_key=DreameMowerProperty.CLEANING_TIME,
         icon="mdi:timer-sand",
         native_unit_of_measurement=UNIT_MINUTES,
-    ),
-    DreameMowerSensorEntityDescription(
-        property_key=DreameMowerProperty.CLEANING_TIME,
-        name="Mapping Time",
-        key="mapping_time",
-        icon="mdi:map-clock",
-        native_unit_of_measurement=UNIT_MINUTES,
-        available_fn=lambda device: device.status.fast_mapping,
-        exists_fn=lambda description, device: device.capability.lidar_navigation,
     ),
     DreameMowerSensorEntityDescription(
         property_key=DreameMowerProperty.CLEANED_AREA,
@@ -274,25 +264,6 @@ SENSORS: tuple[DreameMowerSensorEntityDescription, ...] = (
         property_key=DreameMowerProperty.TOTAL_CLEANED_AREA,
         icon="mdi:set-square",
         native_unit_of_measurement=UNIT_AREA,
-        entity_category=EntityCategory.DIAGNOSTIC,
-    ),
-    DreameMowerSensorEntityDescription(
-        key="current_zone",
-        icon="mdi:home-map-marker",
-        value_fn=lambda value, device: device.status.current_zone.name,
-        exists_fn=lambda description, device: device.capability.map and device.capability.lidar_navigation,
-        attrs_fn=lambda device: {
-            ATTR_ZONE_ID: device.status.current_zone.segment_id,
-            ATTR_ZONE_ICON: device.status.current_zone.icon,
-        },
-    ),
-    DreameMowerSensorEntityDescription(
-        key="cleaning_history",
-        icon="mdi:clipboard-text-clock",
-        device_class=SensorDeviceClass.TIMESTAMP,
-        value_fn=lambda value, device: device.status.last_cleaning_time,
-        exists_fn=lambda description, device: device.capability.map,
-        attrs_fn=lambda device: device.status.cleaning_history,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     DreameMowerSensorEntityDescription(

@@ -130,18 +130,6 @@ SELECTS: tuple[DreameMowerSelectEntityDescription, ...] = (
         ),
     ),
     DreameMowerSelectEntityDescription(
-        key="map_rotation",
-        icon="mdi:crop-rotate",
-        options=lambda device, segment: ["0", "90", "180", "270"],
-        entity_category=EntityCategory.CONFIG,
-        value_fn=lambda value, device: (
-            str(device.status.selected_map.rotation)
-            if device.status.selected_map and device.status.selected_map.rotation is not None
-            else ""
-        ),
-        exists_fn=lambda description, device: device.capability.map,
-    ),
-    DreameMowerSelectEntityDescription(
         key="selected_map",
         icon="mdi:map-check",
         options=lambda device, segment: [v.map_name for k, v in device.status.map_data_list.items()],

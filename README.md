@@ -1,69 +1,54 @@
-![Logo](https://raw.githubusercontent.com/Tasshack/dreame-vacuum/dev/docs/media/logo.png)
+# Dreame Mower A1 Pro
 
-# Dreame lawn mower integration for Home Assistant
+Home Assistant integration for the **Dreame A1 Pro** robotic lawn mower.
 
-[![GitHub Release](https://img.shields.io/github/v/release/bhuebschen/dreame-mower?style=flat-square)](https://github.com/bhuebschen/dreame-mower/releases)
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat-square)](https://hacs.xyz/)
+Fork of [dreame-mower](https://github.com/bhuebschen/dreame-mower) by [@bhuebschen](https://github.com/bhuebschen), itself based on [dreame-vacuum](https://github.com/Tasshack/dreame-vacuum) by [@Tasshack](https://github.com/Tasshack).
 
-This is a custom integration for Home Assistant that allows you to control your Dreame lawn mower robot
+## Entities
 
-## (current) Features
-- Start/Stop mowing.
-- Send back to home.
+| Entity | Type | Description |
+|--------|------|-------------|
+| A1 Pro | Lawn Mower | Main entity — start, stop, dock |
+| Battery Level | Sensor | Current battery percentage |
+| State | Sensor | Current state (mowing, charging, idle, error) |
+| Charging Status | Sensor | Charging / not charging |
+| Firmware Version | Sensor | Installed firmware version |
+| DnD | Switch | Do Not Disturb mode |
 
+## What was fixed from the original
 
-### Please note: this is a modified version of Tasshack's "Dreame Vacuum" integration to work with the lawn mower, in this state it may causes a lot of error-messages.
-### If you are interested in the (original) Vacuum-integration, please take a look at: https://github.com/Tasshack/dreame-vacuum
-
+- **Error codes**: Remapped vacuum error codes to mower-specific meanings (e.g. code 48 = "Mowing Complete", not "LDS Error")
+- **Cloud timeouts**: Increased HTTP timeouts from 5s to 15s for outdoor devices with intermittent WiFi
+- **Connection stability**: MQTT connection kept alive even when cloud HTTP requests fail
+- **Startup reliability**: Integration no longer crashes when initial property requests timeout
+- **Removed unavailable entities**: Stripped camera, map, and cleaning history entities that require cloud features unavailable on the A1 Pro
 
 ## Installation
 
-### HACS (Recommended)
-1. Ensure that [HACS](https://hacs.xyz/) is installed in your Home Assistant instance.
+### HACS (recommended)
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=bhuebschen&repository=dreame-mower&category=integration)
+1. Open HACS in Home Assistant
+2. Click the 3 dots menu > **Custom repositories**
+3. Add `nicolasglg/dreame-mower-a1-pro` as **Integration**
+4. Search for and install **Dreame Mower A1 Pro**
+5. Restart Home Assistant
+6. Go to Settings > Integrations > Add Integration > **Dreame Mower**
 
--- or --
+### Manual
 
-2. Add this repository as a custom repository in HACS:
-   - Open HACS in Home Assistant.
-   - Go to **Integrations**.
-   - Click on the three dots in the top-right corner and select **Custom repositories**.
-   - Add the following URL: `https://github.com/bhuebschen/dreame-mower`.
-   - Select **Integration** as the category.
-3. Search for "Dreame Mower" in the HACS integrations list and install it.
-
-### Manual Installation
-1. Download the latest release from the [GitHub Releases page](https://github.com/bhuebschen/dreame-mower/releases).
-2. Extract the downloaded archive.
-3. Copy the `custom_components/dreame-mower` folder to your Home Assistant `custom_components` directory.
-   - Example: `/config/custom_components/dreame-mower`
-4. Restart Home Assistant.
+Copy the `custom_components/dreame_mower` folder to your Home Assistant `custom_components/` directory and restart.
 
 ## Configuration
-<a href="https://my.home-assistant.io/redirect/config_flow_start/?domain=dreame_mower" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg" alt="Open your Home Assistant instance and start setting up a new integration." /></a>
 
--- or --
+Use the same Dreame / Xiaomi account credentials as the Dreamehome app.
 
-1. In Home Assistant, navigate to **Settings** > **Devices & Services**.
-2. Click **Add Integration**.
-3. Search for "Dreame Mower" and select it.
-4. Enter the credentials you used in your Dreame App
-5. Complete the setup process.
+## Credits
 
-
-## Usage
-Once the integration is configured, your Dreame Mower(s) will appear as entities in Home Assistant.
-
-## Troubleshooting
-- Ensure your Dreame account credentials are correct.
-- Check the Home Assistant logs for any errors related to the integration.
+- [@bhuebschen](https://github.com/bhuebschen) — original [dreame-mower](https://github.com/bhuebschen/dreame-mower) integration
+- [@Tasshack](https://github.com/Tasshack) — [dreame-vacuum](https://github.com/Tasshack/dreame-vacuum) integration this is based on
 
 ## Support
-If you encounter any issues or have feature requests, please open an issue on the [GitHub Issues page](https://github.com/bhuebschen/dreame-mower/issues).
 
-## Contributions
-Contributions are welcome! Feel free to submit pull requests to improve this integration.
+If this integration is useful to you:
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/bhuebschen/dreame-mower/blob/main/LICENSE) file for details.
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat&logo=buy-me-a-coffee)](https://buymeacoffee.com/nicolasglg)
