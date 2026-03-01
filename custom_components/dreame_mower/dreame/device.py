@@ -1178,7 +1178,7 @@ class DreameMowerDevice:
                     x1=max(xs), y1=max(ys),
                     x=sum(xs) // len(xs),
                     y=sum(ys) // len(ys),
-                    name=name,
+                    custom_name=name,
                 )
                 seg.color_index = (zone_id - 1) % 4
                 segments[zone_id] = seg
@@ -1654,7 +1654,6 @@ class DreameMowerDevice:
                                 )
                         except:
                             pass
-
 
             if not self.available:
                 self.available = True

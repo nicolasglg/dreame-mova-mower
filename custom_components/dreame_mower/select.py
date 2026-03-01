@@ -597,7 +597,7 @@ class DreameMowerSegmentSelectEntity(DreameMowerEntity, SelectEntity):
 
         super().__init__(coordinator, description)
         self._attr_unique_id = f"{self.device.mac}_room_{segment_id}_{description.key.lower()}"
-        self.entity_id = f"select.{self.device.name.lower()}_room_{segment_id}_{description.key.lower()}"
+        self.entity_id = f"select.{self.device.name.lower().replace(' ', '_')}_room_{segment_id}_{description.key.lower()}"
         self._attr_options = []
         self._attr_current_option = "unavailable"
         if self.segment:

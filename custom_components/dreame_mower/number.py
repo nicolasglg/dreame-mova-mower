@@ -54,6 +54,8 @@ NUMBERS: tuple[DreameMowerNumberEntityDescription, ...] = (
     ),
 )
 
+SEGMENT_NUMBERS: tuple[DreameMowerNumberEntityDescription, ...] = ()
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
@@ -220,7 +222,7 @@ class DreameMowerSegmentNumberEntity(DreameMowerEntity, NumberEntity):
 
         super().__init__(coordinator, description)
         self._attr_unique_id = f"{self.device.mac}_room_{segment_id}_{description.key.lower()}"
-        self.entity_id = f"number.{self.device.name.lower()}_room_{segment_id}_{description.key.lower()}"
+        self.entity_id = f"number.{self.device.name.lower().replace(' ', '_')}_room_{segment_id}_{description.key.lower()}"
         self._attr_native_value = None
         if self.segment:
             self._attr_native_value = description.value_fn(coordinator.device, self.segment)

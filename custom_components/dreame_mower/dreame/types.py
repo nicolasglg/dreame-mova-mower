@@ -12,40 +12,10 @@ from datetime import datetime
 
 SEGMENT_TYPE_CODE_TO_NAME: Final = {
     0: "Zone",
-    1: "Living Zone",
-    2: "Primary Bedzone",
-    3: "Study",
-    4: "Kitchen",
-    5: "Dining Hall",
-    6: "Bathzone",
-    7: "Balcony",
-    8: "Corridor",
-    9: "Utility Zone",
-    10: "Closet",
-    11: "Meeting Zone",
-    12: "Office",
-    13: "Fitness Area",
-    14: "Recreation Area",
-    15: "Secondary Bedzone",
 }
 
 SEGMENT_TYPE_CODE_TO_HA_ICON: Final = {
-    0: "mdi:home-outline",
-    1: "mdi:sofa-outline",
-    2: "mdi:bed-king-outline",
-    3: "mdi:bookshelf",
-    4: "mdi:chef-hat",
-    5: "mdi:zone-service-outline",
-    6: "mdi:toilet",
-    7: "mdi:flower-outline",
-    8: "mdi:foot-print",
-    9: "mdi:archive-outline",
-    10: "mdi:hanger",
-    11: "mdi:presentation",
-    12: "mdi:monitor-shimmer",
-    13: "mdi:dumbbell",
-    14: "mdi:gamepad-variant-outline",
-    15: "mdi:bed-single-outline",
+    0: "mdi:grass",
 }
 
 FURNITURE_TYPE_TO_DIMENSIONS: Final = {
