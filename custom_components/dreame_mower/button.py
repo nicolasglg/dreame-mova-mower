@@ -37,6 +37,12 @@ class DreameMowerButtonEntityDescription(DreameMowerEntityDescription, ButtonEnt
 
 BUTTONS: tuple[ButtonEntityDescription, ...] = (
     DreameMowerButtonEntityDescription(
+        key="stop_mowing",
+        name="Stop Mowing",
+        icon="mdi:stop",
+        action_fn=lambda device: device.stop(),
+    ),
+    DreameMowerButtonEntityDescription(
         action_key=DreameMowerAction.RESET_BLADES,
         icon="mdi:car-turbocharger",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -114,9 +120,6 @@ async def async_setup_entry(
         coordinator.async_add_listener(update_buttons)
         update_buttons()
 
-    update_segment_buttons = partial(async_update_segment_buttons, coordinator, {}, async_add_entities)
-    coordinator.async_add_listener(update_segment_buttons)
-    update_segment_buttons()
 
 
 @callback
@@ -292,98 +295,6 @@ class DreameMowerShortcutButtonEntity(DreameMowerEntity, ButtonEntity):
             "Unable to call %s",
             self.device.start_shortcut,
             self.shortcut_id,
-        )
-
-
-@callback
-def async_update_segment_buttons(
-    coordinator: DreameMowerDataUpdateCoordinator,
-    current: dict[int, list["DreameMowerSegmentButtonEntity"]],
-    async_add_entities,
-) -> None:
-    new_ids = set()
-    if coordinator.device and coordinator.device.status.segments:
-        new_ids = set(coordinator.device.status.segments.keys())
-
-    current_ids = set(current)
-
-    for segment_id in current_ids - new_ids:
-        async_remove_buttons(segment_id, coordinator, current)
-
-    new_entities = []
-    for segment_id in new_ids - current_ids:
-        current[segment_id] = [
-            DreameMowerSegmentButtonEntity(
-                coordinator,
-                DreameMowerButtonEntityDescription(
-                    key="mow_zone",
-                    icon="mdi:grass",
-                    available_fn=lambda device: not device.status.started,
-                ),
-                segment_id,
-            )
-        ]
-        new_entities = new_entities + current[segment_id]
-
-    if new_entities:
-        async_add_entities(new_entities)
-
-
-class DreameMowerSegmentButtonEntity(DreameMowerEntity, ButtonEntity):
-    """Defines a Dreame Mower Segment Button entity."""
-
-    def __init__(
-        self,
-        coordinator: DreameMowerDataUpdateCoordinator,
-        description: DreameMowerButtonEntityDescription,
-        segment_id: int,
-    ) -> None:
-        """Initialize a Dreame Mower Segment Button entity."""
-        self.segment_id = segment_id
-        self.segment = None
-        self.segments = None
-        if coordinator.device and coordinator.device.status.segments:
-            self.segments = copy.deepcopy(coordinator.device.status.segments)
-            if segment_id in self.segments:
-                self.segment = self.segments[segment_id]
-
-        super().__init__(coordinator, description)
-        self._attr_unique_id = f"{self.device.mac}_mow_zone_{segment_id}"
-        self.entity_id = f"button.{self.device.name.lower().replace(' ', '_')}_mow_zone_{segment_id}"
-
-    def _set_id(self) -> None:
-        """Set name of the entity."""
-        if self.segment and self.segment.custom_name:
-            zone_name = self.segment.custom_name
-        elif self.segment:
-            zone_name = self.segment.name
-        else:
-            zone_name = str(self.segment_id)
-        self._attr_name = f"{self.device.name} Tondre {zone_name}"
-
-    @callback
-    def _handle_coordinator_update(self) -> None:
-        if self.device.status.segments != self.segments:
-            self.segments = copy.deepcopy(self.device.status.segments)
-            if self.segments and self.segment_id in self.segments:
-                if self.segment != self.segments[self.segment_id]:
-                    self.segment = self.segments[self.segment_id]
-                    self._set_id()
-            elif self.segment:
-                self.segment = None
-                self._set_id()
-
-        self.async_write_ha_state()
-
-    async def async_press(self, **kwargs: Any) -> None:
-        """Press the button to mow the zone."""
-        if not self.available:
-            raise HomeAssistantError("Entity unavailable")
-
-        await self._try_command(
-            "Unable to call %s",
-            self.device.clean_segment,
-            self.segment_id,
         )
 
 

@@ -2509,6 +2509,7 @@ class DreameMowerDevice:
                 DreameMowerAction.START_MOWING,
                 DreameMowerAction.PAUSE,
                 DreameMowerAction.DOCK,
+                DreameMowerAction.STOP,
             ]
         )
 

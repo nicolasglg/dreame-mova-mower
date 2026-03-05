@@ -210,8 +210,6 @@ class DreameMowerDreameHomeCloudProtocol:
     def _on_client_message(client, self, message):
         if self._message_callback:
             try:
-                _LOGGER.error("Message received: %s",
-                              message.payload.decode("utf-8"))
                 response = json.loads(message.payload.decode("utf-8"))
                 if "data" in response and response["data"]:
                     self._message_callback(response["data"])
@@ -414,6 +412,7 @@ class DreameMowerDreameHomeCloudProtocol:
                     "id": self._id,
                     "method": method,
                     "params": parameters,
+                    "from": "XXXXXX",
                 },
             },
             retry_count,
@@ -424,24 +423,37 @@ class DreameMowerDreameHomeCloudProtocol:
         if self._host and len(self._host):
             host = f"-{self._host.split('.')[0]}"
 
-        api_response = self._api_call(
-            f"{self._strings[37]}{host}/{self._strings[27]}/{self._strings[38]}",
-            {
-                "did": str(self._did),
-                "id": self._id,
-                "data": {
+        attempts = 3 if method == "action" else 1
+        for attempt in range(attempts):
+            self._id = self._id + 1
+            api_response = self._api_call(
+                f"{self._strings[37]}{host}/{self._strings[27]}/{self._strings[38]}",
+                {
                     "did": str(self._did),
                     "id": self._id,
-                    "method": method,
-                    "params": parameters,
+                    "data": {
+                        "did": str(self._did),
+                        "id": self._id,
+                        "method": method,
+                        "params": parameters,
+                        "from": "XXXXXX",
+                    },
                 },
-            },
-            retry_count,
-        )
-        self._id = self._id + 1
-        if api_response is None or "data" not in api_response or not api_response["data"] or "result" not in api_response["data"]:
-            return None
-        return api_response["data"]["result"]
+                retry_count,
+            )
+            if api_response and "data" in api_response and api_response["data"] and "result" in api_response["data"]:
+                return api_response["data"]["result"]
+
+            error_code = api_response.get("code") if api_response else None
+            if error_code:
+                _LOGGER.warning(
+                    "Cloud send error %s for %s (attempt %d/%d): %s",
+                    error_code, method, attempt + 1, attempts, api_response.get("msg", ""))
+                if method == "action" and attempt < attempts - 1:
+                    sleep(8)
+                    continue
+            break
+        return None
 
     def get_file(self, url: str, retry_count: int = 4) -> Any:
         retries = 0
@@ -1252,7 +1264,8 @@ class DreameMowerProtocol:
 
             def cloud_callback(response):
                 if response is None:
-                    self._connected = False
+                    if not (self.device_cloud and self.device_cloud._client_connected):
+                        self._connected = False
                     raise DeviceException(
                         "Unable to discover the device over cloud") from None
                 self._connected = True
@@ -1285,7 +1298,7 @@ class DreameMowerProtocol:
                 method, parameters=parameters, retry_count=retry_count)
             if response is None:
                 _LOGGER.warning(
-                    "Cloud request returned None for %s (device may be in standby)", method)
+                    "Cloud request returned None for %s (device may be in deep sleep)", method)
                 return None
             self._connected = True
             return response
