@@ -315,7 +315,7 @@
           "self_test": "Auto-test",
           "factory_test": "Test usine",
           "standby": "En veille",
-          "room_cleaning": "Nettoyage d'une pièce",
+          "room_cleaning": "Tonte d'une zone",
           "zone_cleaning": "Nettoyage d'une zone",
           "fast_mapping": "Cartographie rapide",
           "cruising_path": "Croisière sur chemin",
@@ -332,20 +332,20 @@
           "completed": "Terminée",
           "cleaning": "Nettoyage",
           "zone_cleaning": "Nettoyage d'une zone",
-          "room_cleaning": "Nettoyage d'une pièce",
+          "room_cleaning": "Tonte d'une zone",
           "spot_cleaning": "Nettoyage localisé",
           "fast_mapping": "Cartographie rapide",
           "cleaning_paused": "Nettoyage mis en pause",
-          "room_cleaning_paused": "Nettoyage de la pièce mis en pause",
+          "room_cleaning_paused": "Tonte de la zone mise en pause",
           "zone_cleaning_paused": "Nettoyage de la zone mis en pause",
           "spot_cleaning_paused": "Nettoyage localisé mis en pause",
           "map_cleaning_paused": "Map cleaning paused",
           "docking_paused": "Retour à la station mis en pause",
           "mopping_paused": "Lavage mis en pause",
           "zone_mopping_paused": "Lavage d'une zone mis en pause",
-          "room_mopping_paused": "Lavage d'une pièce mis en pause",
+          "room_mopping_paused": "Lavage d'une zone mis en pause",
           "zone_docking_paused": "Retour à la station mis en pause",
-          "room_docking_paused": "Retour à la station mis en pause",
+          "room_docking_paused": "Retour à la station (zone) mis en pause",
           "cruising_path": "Croisière sur chemin",
           "cruising_path_paused": "Croisière sur chemin en pause",
           "cruising_point": "Croisière vers un point",
@@ -560,24 +560,24 @@
   },
   "services": {
     "mower_clean_segment": {
-      "name": "Nettoyer le segment",
-      "description": "Démarrez l’opération de nettoyage dans les pièces sélectionnées.",
+      "name": "Tondre une zone",
+      "description": "Lancer la tonte dans les zones sélectionnées.",
       "fields": {
         "segments": {
           "name": "Segments",
-          "description": "Liste des pièces à nettoyer. "
+          "description": "Liste des zones à tondre. ID de zone ou tableau d’IDs avec paramètres optionnels."
         },
         "repeats": {
           "name": "Répétitions",
-          "description": "Nombre de passes de nettoyage pour chaque pièce sélectionnée (sauf si cela est annulé par un paramètre de nettoyage personnalisé)."
+          "description": "Nombre de passes de tonte pour chaque zone sélectionnée."
         },
         "suction_level": {
-          "name": "Niveau d'aspiration",
-          "description": "Vitesse du ventilateur pour chaque pièce sélectionnée (sauf si elle est annulée par un paramètre de nettoyage personnalisé)."
+          "name": "Niveau d’aspiration",
+          "description": "Vitesse pour chaque zone sélectionnée."
         },
         "water_volume": {
-          "name": "Volume d'eau",
-          "description": "Niveau d'eau pour chaque pièce sélectionnée (sauf s'il est annulé par un paramètre de nettoyage personnalisé)."
+          "name": "Volume d’eau",
+          "description": "Niveau d’eau pour chaque zone sélectionnée."
         }
       }
     },
@@ -781,7 +781,7 @@
     },
     "mower_merge_segments": {
       "name": "Fusionner des segments",
-      "description": "Fusionner les pièces.",
+      "description": "Fusionner des zones.",
       "fields": {
         "map_id": {
           "name": "ID de carte",
@@ -789,13 +789,13 @@
         },
         "segments": {
           "name": "Segments",
-          "description": "ID des chambres."
+          "description": "IDs des zones."
         }
       }
     },
     "mower_split_segments": {
-      "name": "Segments divisés",
-      "description": "Chambres divisées.",
+      "name": "Diviser des zones",
+      "description": "Diviser une zone.",
       "fields": {
         "map_id": {
           "name": "ID de carte",
@@ -803,7 +803,7 @@
         },
         "segment": {
           "name": "Segment",
-          "description": "ID de la pièce."
+          "description": "ID de la zone."
         },
         "line": {
           "name": "Doubler",
@@ -827,7 +827,7 @@
     },
     "mower_set_cleaning_sequence": {
       "name": "Définir la séquence de nettoyage",
-      "description": "Définir la séquence de nettoyage de la pièce. ",
+      "description": "Définir la séquence de tonte des zones.",
       "fields": {
         "cleaning_sequence": {
           "name": "Séquence de nettoyage",
@@ -841,23 +841,23 @@
       "fields": {
         "segment_id": {
           "name": "ID de segment",
-          "description": "ID des chambres."
+          "description": "IDs des zones."
         },
         "suction_level": {
           "name": "Niveau d'aspiration",
-          "description": "Niveau d'aspiration pour chaque pièce."
+          "description": "Niveau d'aspiration pour chaque zone."
         },
         "water_volume": {
           "name": "Volume d'eau",
-          "description": "Volume d'eau pour chaque pièce."
+          "description": "Volume d'eau pour chaque zone."
         },
         "cleaning_mode": {
-          "name": "Mode de nettoyage",
-          "description": "Nettoyage de chaque pièce (uniquement pris en charge sur les aspirateurs dotés de la fonction de levage du tampon de vadrouille)."
+          "name": "Mode de tonte",
+          "description": "Mode de tonte pour chaque zone."
         },
         "repeats": {
           "name": "Répétitions",
-          "description": "Horaires de ménage pour chaque pièce."
+          "description": "Nombre de passes pour chaque zone."
         }
       }
     },

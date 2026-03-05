@@ -241,7 +241,7 @@
         }
       },
       "custom_mopping_route": {
-        "state": {          
+        "state": {
           "off": "Aus",
           "standard": "Standard",
           "intensive": "Intensiv",
@@ -312,7 +312,7 @@
           "self_test": "Selbsttest",
           "factory_test": "Werkstest",
           "standby": "Standby",
-          "room_cleaning": "Raumreinigung",
+          "room_cleaning": "Zone mowing",
           "zone_cleaning": "Zonenreinigung",
           "fast_mapping": "Schnelles Mapping",
           "cruising_path": "Fährt auf Wegstrecke",
@@ -329,20 +329,20 @@
           "completed": "Erledigt",
           "cleaning": "Reinigen",
           "zone_cleaning": "Zonenreinigung",
-          "room_cleaning": "Raumreinigung",
+          "room_cleaning": "Zone mowing",
           "spot_cleaning": "Spotreinigung",
           "fast_mapping": "Schnelles Mapping",
           "cleaning_paused": "Reinigung pausiert",
-          "room_cleaning_paused": "Raumreinigung pausiert",
+          "room_cleaning_paused": "Zone mowing paused",
           "zone_cleaning_paused": "Zonenreinigung pausiert",
           "spot_cleaning_paused": "Spotreinigung pausiert",
           "map_cleaning_paused": "Kartenreinigung pausiert",
           "docking_paused": "Docking pausiert",
           "mopping_paused": "Wischen pausiert",
           "zone_mopping_paused": "Zonenwischen pausiert",
-          "room_mopping_paused": "Raumwischen pausiert",
+          "room_mopping_paused": "Zone mopping paused",
           "zone_docking_paused": "Zonenwischen pausiert",
-          "room_docking_paused": "Raumdocking pausiert",
+          "room_docking_paused": "Zone docking paused",
           "cruising_path": "Fährt auf Wegstrecke",
           "cruising_path_paused": "Die Fahrt auf der Wegstrecke wurde unterbrochen",
           "cruising_point": "Auf dem Weg zum Zielpunkt",
@@ -558,23 +558,23 @@
   "services": {
     "mower_clean_segment": {
       "name": "Reinige Segment",
-      "description": "Starte den Reinigungsvorgang in den ausgewählten Räumen.",
+      "description": "Start the mowing operation in the selected zones.",
       "fields": {
         "segments": {
           "name": "Segmente",
-          "description": "Liste der Räume, die gereinigt werden sollen. Entweder der Raumname oder ein Array mit Raumnamen, Reinigungszeiten, Lüftergeschwindigkeiten und Wischmodus, um die Standardwerte pro Raum zu überschreiben."
+          "description": "List of zones to be mowed. Zone ID or an array of zone IDs with optional cleaning times to override the default values per zone."
         },
         "repeats": {
           "name": "Wiederholungen",
-          "description": "Anzahl der Reinigungsdurchgänge für jeden ausgewählten Raum (sofern nicht durch benutzerdefinierte Reinigungsparameter überschrieben)."
+          "description": "Number of mowing passes for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "suction_level": {
           "name": "Saugstufe",
-          "description": "Lüftergeschwindigkeit für jeden ausgewählten Raum (sofern nicht durch benutzerdefinierte Reinigungsparameter überschrieben)."
+          "description": "Fan speed for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "water_volume": {
           "name": "Wassermenge",
-          "description": "Wasserstand für jeden ausgewählten Raum (sofern nicht durch benutzerdefinierte Reinigungsparameter überschrieben)."
+          "description": "Water level for every selected zone (unless it is overridden by customized cleaning parameter)."
         }
       }
     },
@@ -778,7 +778,7 @@
     },
     "mower_merge_segments": {
       "name": "Segmente zusammenführen",
-      "description": "Räume zusammenführen.",
+      "description": "Merge zones.",
       "fields": {
         "map_id": {
           "name": "Karten-ID",
@@ -786,13 +786,13 @@
         },
         "segments": {
           "name": "Segmente",
-          "description": "Raum-IDs."
+          "description": "Zone IDs."
         }
       }
     },
     "mower_split_segments": {
       "name": "Segmente aufteilen",
-      "description": "Räume aufteilen.",
+      "description": "Split zones.",
       "fields": {
         "map_id": {
           "name": "Karten-ID",
@@ -800,7 +800,7 @@
         },
         "segment": {
           "name": "Segment",
-          "description": "Raum-ID."
+          "description": "Zone ID."
         },
         "line": {
           "name": "Linie",
@@ -824,7 +824,7 @@
     },
     "mower_set_cleaning_sequence": {
       "name": "Reihenfolge der Reinigung festlegen",
-      "description": "Reihenfolge der Raumreinigung festlegen (nur bei unterstützten Geräten).",
+      "description": "Set zone mowing sequence. (Only on supported devices)",
       "fields": {
         "cleaning_sequence": {
           "name": "Reinigungsreihenfolge",
@@ -838,23 +838,23 @@
       "fields": {
         "segment_id": {
           "name": "Segment-ID",
-          "description": "Raum-IDs."
+          "description": "Zone IDs."
         },
         "suction_level": {
           "name": "Saugstufe",
-          "description": "Saugstufe für jeden Raum."
+          "description": "Suction level for each zone."
         },
         "water_volume": {
           "name": "Wassermenge",
-          "description": "Wassermenge für jeden Raum."
+          "description": "Water volume for each zone."
         },
         "cleaning_mode": {
           "name": "Reinigungsmodus",
-          "description": "Reinigungsmodus für jeden Raum (unterstützt nur bei Staubsaugern mit Wischpad-Hebefunktion)."
+          "description": "Cleaning mode for each zone."
         },
         "repeats": {
           "name": "Wiederholungen",
-          "description": "Reinigungszeiten für jeden Raum."
+          "description": "Number of passes for each zone."
         }
       }
     },

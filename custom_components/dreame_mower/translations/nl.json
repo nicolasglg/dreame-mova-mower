@@ -155,7 +155,7 @@
           "high_frequency": "Hoge Frequentie",
           "low_frequency": "Lage Frequentie"
         }
-      },      
+      },
       "mop_pad_swing": {
         "state": {
           "off": "Uit",
@@ -315,7 +315,7 @@
           "self_test": "Zelftest",
           "factory_test": "Fabriekstest",
           "standby": "Standby",
-          "room_cleaning": "Kamerschoonmaak",
+          "room_cleaning": "Zone mowing",
           "zone_cleaning": "Zone schoonmaken",
           "fast_mapping": "Snelle kaartopbouw",
           "cruising_path": "Cruisen op pad",
@@ -332,20 +332,20 @@
           "completed": "Voltooid",
           "cleaning": "Schoonmaken",
           "zone_cleaning": "Zone schoonmaken",
-          "room_cleaning": "Kamerschoonmaak",
+          "room_cleaning": "Zone mowing",
           "spot_cleaning": "Plek schoonmaken",
           "fast_mapping": "Snelle kaartopbouw",
           "cleaning_paused": "Schoonmaken gepauzeerd",
-          "room_cleaning_paused": "Kamerschoonmaak gepauzeerd",
+          "room_cleaning_paused": "Zone mowing paused",
           "zone_cleaning_paused": "Zone schoonmaken gepauzeerd",
           "spot_cleaning_paused": "Plek schoonmaken gepauzeerd",
           "map_cleaning_paused": "Kaartschoonmaak gepauzeerd",
           "docking_paused": "Docking gepauzeerd",
           "mopping_paused": "Dweilen gepauzeerd",
           "zone_mopping_paused": "Zone dweilen gepauzeerd",
-          "room_mopping_paused": "Kamer dweilen gepauzeerd",
+          "room_mopping_paused": "Zone mopping paused",
           "zone_docking_paused": "Zone docking gepauzeerd",
-          "room_docking_paused": "Kamer docking gepauzeerd",
+          "room_docking_paused": "Zone docking paused",
           "cruising_path": "Cruisen op pad",
           "cruising_path_paused": "Cruisen op pad gepauzeerd",
           "cruising_point": "Naar punt cruisen",
@@ -561,23 +561,23 @@
   "services": {
     "mower_clean_segment": {
       "name": "Segment Schoonmaken",
-      "description": "Start de schoonmaakoperatie in de geselecteerde kamers.",
+      "description": "Start the mowing operation in the selected zones.",
       "fields": {
         "segments": {
           "name": "Segmenten",
-          "description": "Lijst van kamers die schoongemaakt moeten worden. Alleen het karakter van de kamer of een array van kamers karakter, schoonmaaktijden, ventilatorsnelheid en dweilmodus om de standaardwaarden per kamer te overschrijven."
+          "description": "List of zones to be mowed. Zone ID or an array of zone IDs with optional cleaning times to override the default values per zone."
         },
         "repeats": {
           "name": "Herhalingen",
-          "description": "Aantal schoonmaakrondes voor elke geselecteerde kamer (tenzij dit wordt overschreven door aangepaste schoonmaakparameters)."
+          "description": "Number of mowing passes for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "suction_level": {
           "name": "Zuigniveau",
-          "description": "Ventilatorsnelheid voor elke geselecteerde kamer (tenzij dit wordt overschreven door aangepaste schoonmaakparameters)."
+          "description": "Fan speed for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "water_volume": {
           "name": "Waterhoeveelheid",
-          "description": "Waterniveau voor elke geselecteerde kamer (tenzij dit wordt overschreven door aangepaste schoonmaakparameters)."
+          "description": "Water level for every selected zone (unless it is overridden by customized cleaning parameter)."
         }
       }
     },
@@ -781,7 +781,7 @@
     },
     "mower_merge_segments": {
       "name": "Segmenten Samenvoegen",
-      "description": "Ruimtes samenvoegen.",
+      "description": "Merge zones.",
       "fields": {
         "map_id": {
           "name": "Kaart ID",
@@ -789,13 +789,13 @@
         },
         "segments": {
           "name": "Segmenten",
-          "description": "ID's van de ruimtes."
+          "description": "Zone IDs."
         }
       }
     },
     "mower_split_segments": {
       "name": "Segmenten Splitsen",
-      "description": "Ruimtes splitsen.",
+      "description": "Split zones.",
       "fields": {
         "map_id": {
           "name": "Kaart ID",
@@ -803,7 +803,7 @@
         },
         "segment": {
           "name": "Segment",
-          "description": "ID van de ruimte."
+          "description": "Zone ID."
         },
         "line": {
           "name": "Lijn",
@@ -827,7 +827,7 @@
     },
     "mower_set_cleaning_sequence": {
       "name": "Schoonmaakvolgorde Instellen",
-      "description": "Stel de schoonmaakvolgorde van de ruimtes in. (Alleen op ondersteunde apparaten)",
+      "description": "Set zone mowing sequence. (Only on supported devices)",
       "fields": {
         "cleaning_sequence": {
           "name": "Schoonmaakvolgorde",
@@ -841,23 +841,23 @@
       "fields": {
         "segment_id": {
           "name": "Segment ID",
-          "description": "ID's van de ruimtes."
+          "description": "Zone IDs."
         },
         "suction_level": {
           "name": "Zuigniveau",
-          "description": "Zuigniveau voor elke ruimte."
+          "description": "Suction level for each zone."
         },
         "water_volume": {
           "name": "Waterhoeveelheid",
-          "description": "Waterhoeveelheid voor elke ruimte."
+          "description": "Water volume for each zone."
         },
         "cleaning_mode": {
           "name": "Schoonmaakmodus",
-          "description": "Schoonmaakmodus voor elke ruimte (alleen ondersteund op stofzuigers met een mophouderfunctie)."
+          "description": "Cleaning mode for each zone."
         },
         "repeats": {
           "name": "Herhalingen",
-          "description": "Aantal schoonmaakbeurten voor elke ruimte."
+          "description": "Number of passes for each zone."
         }
       }
     },

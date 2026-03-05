@@ -312,7 +312,7 @@
           "self_test": "Самоперевірка",
           "factory_test": "Заводське тестування",
           "standby": "Очікування",
-          "room_cleaning": "Прибирання кімнати",
+          "room_cleaning": "Zone mowing",
           "zone_cleaning": "Прибирання зони",
           "fast_mapping": "Швидка побудова мапи",
           "cruising_path": "Переміщення за шляхом",
@@ -329,20 +329,20 @@
           "completed": "Завершено",
           "cleaning": "Прибирання",
           "zone_cleaning": "Прибирання зони",
-          "room_cleaning": "Прибирання кімнати",
+          "room_cleaning": "Zone mowing",
           "spot_cleaning": "Точкове прибирання",
           "fast_mapping": "Швидка побудова мапи",
           "cleaning_paused": "Прибирання призупинено",
-          "room_cleaning_paused": "Прибирання кімнати призупинено",
+          "room_cleaning_paused": "Zone mowing paused",
           "zone_cleaning_paused": "Прибирання зони призупинено",
           "spot_cleaning_paused": "Точкове прибирання призупинено",
           "map_cleaning_paused": "Повне прибирання призупинено",
           "docking_paused": "Повернення до бази призупинено",
           "mopping_paused": "Вологе прибирання призупинено",
           "zone_mopping_paused": "Вологе прибирання зони призупинено",
-          "room_mopping_paused": "Вологе прибирання кімнати призупинено",
+          "room_mopping_paused": "Zone mopping paused",
           "zone_docking_paused": "Повернення до бази при прибиранні зони призупинено",
-          "room_docking_paused": "Повернення до бази при прибиранні кімнати призупинено",
+          "room_docking_paused": "Zone docking paused",
           "cruising_path": "Переміщення за шляхом",
           "cruising_path_paused": "Переміщення за шляхом призупинено",
           "cruising_point": "Переміщення до точки",
@@ -558,23 +558,23 @@
   "services": {
     "mower_clean_segment": {
       "name": "Чистий сегмент",
-      "description": "Почніть прибирання у вибраних кімнатах.",
+      "description": "Start the mowing operation in the selected zones.",
       "fields": {
         "segments": {
           "name": "Сегменти",
-          "description": "Список приміщень, що підлягають прибиранню. "
+          "description": "List of zones to be mowed. Zone ID or an array of zone IDs with optional cleaning times to override the default values per zone."
         },
         "repeats": {
           "name": "Повтори",
-          "description": "Кількість проходів прибирання для кожної вибраної кімнати (якщо це не перевизначено спеціальним параметром прибирання)."
+          "description": "Number of mowing passes for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "suction_level": {
           "name": "Рівень всмоктування",
-          "description": "Швидкість вентилятора для кожної вибраної кімнати (якщо вона не перевизначена індивідуальним параметром прибирання)."
+          "description": "Fan speed for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "water_volume": {
           "name": "Об'єм води",
-          "description": "Рівень води для кожної вибраної кімнати (якщо він не перекривається індивідуальним параметром очищення)."
+          "description": "Water level for every selected zone (unless it is overridden by customized cleaning parameter)."
         }
       }
     },
@@ -778,7 +778,7 @@
     },
     "mower_merge_segments": {
       "name": "Об’єднати сегменти",
-      "description": "Об'єднати кімнати.",
+      "description": "Merge zones.",
       "fields": {
         "map_id": {
           "name": "ID карти",
@@ -786,13 +786,13 @@
         },
         "segments": {
           "name": "Сегменти",
-          "description": "Ідентифікатори кімнат."
+          "description": "Zone IDs."
         }
       }
     },
     "mower_split_segments": {
       "name": "Розбиті сегменти",
-      "description": "Розділені кімнати.",
+      "description": "Split zones.",
       "fields": {
         "map_id": {
           "name": "ID карти",
@@ -800,7 +800,7 @@
         },
         "segment": {
           "name": "Відрізок",
-          "description": "ID кімнати."
+          "description": "Zone ID."
         },
         "line": {
           "name": "лінія",
@@ -824,7 +824,7 @@
     },
     "mower_set_cleaning_sequence": {
       "name": "Встановіть послідовність очищення",
-      "description": "Встановити послідовність прибирання приміщення. ",
+      "description": "Set zone mowing sequence. (Only on supported devices)",
       "fields": {
         "cleaning_sequence": {
           "name": "Послідовність очищення",
@@ -838,23 +838,23 @@
       "fields": {
         "segment_id": {
           "name": "Ідентифікатор сегмента",
-          "description": "Ідентифікатори кімнат."
+          "description": "Zone IDs."
         },
         "suction_level": {
           "name": "Рівень всмоктування",
-          "description": "Рівень всмоктування для кожної кімнати."
+          "description": "Suction level for each zone."
         },
         "water_volume": {
           "name": "Об'єм води",
-          "description": "Обсяг води для кожної кімнати."
+          "description": "Water volume for each zone."
         },
         "cleaning_mode": {
           "name": "Режим очищення",
-          "description": "Прибирання для кожної кімнати (підтримується лише на пилососах із функцією підйому мочалки)."
+          "description": "Cleaning mode for each zone."
         },
         "repeats": {
           "name": "Повтори",
-          "description": "Час прибирання для кожної кімнати."
+          "description": "Number of passes for each zone."
         }
       }
     },

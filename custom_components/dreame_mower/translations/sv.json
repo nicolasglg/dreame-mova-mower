@@ -312,7 +312,7 @@
           "self_test": "Självtest",
           "factory_test": "Fabrikstest",
           "standby": "Standby",
-          "room_cleaning": "Rumsrengöring",
+          "room_cleaning": "Zone mowing",
           "zone_cleaning": "Zonrengöring",
           "fast_mapping": "Snabbmappning",
           "cruising_path": "Åk längs bana",
@@ -329,20 +329,20 @@
           "completed": "Färdig",
           "cleaning": "Dammsuger",
           "zone_cleaning": "Zonrengöring",
-          "room_cleaning": "Rumsrengöring",
+          "room_cleaning": "Zone mowing",
           "spot_cleaning": "Punktrengöring",
           "fast_mapping": "Snabbmappning",
           "cleaning_paused": "Städning pausad",
-          "room_cleaning_paused": "Rumsrengöring pausad",
+          "room_cleaning_paused": "Zone mowing paused",
           "zone_cleaning_paused": "Zonrengöring pausad",
           "spot_cleaning_paused": "Punktrengöring pausad",
           "map_cleaning_paused": "Kartstädning pausad",
           "docking_paused": "Dockning pausad",
           "mopping_paused": "Moppning pausad",
           "zone_mopping_paused": "Zonmoppning pausad",
-          "room_mopping_paused": "Rumsmoppning pausad",
+          "room_mopping_paused": "Zone mopping paused",
           "zone_docking_paused": "Zondockning pausad",
-          "room_docking_paused": "Rumsdockning pausad",
+          "room_docking_paused": "Zone docking paused",
           "cruising_path": "Åk längs bana",
           "cruising_path_paused": "Åk längs bana pausad",
           "cruising_point": "Åk till punkt",
@@ -558,23 +558,23 @@
   "services": {
     "mower_clean_segment": {
       "name": "Städa Segment",
-      "description": "Börja städa i valda rum.",
+      "description": "Start the mowing operation in the selected zones.",
       "fields": {
         "segments": {
           "name": "Segment",
-          "description": "Lista över rum som ska städas. Endast rumssymbol eller en lista av rumssymboler, städtid, sugnivå och moppläge för att åsidosätta standardlägen för varje rum."
+          "description": "List of zones to be mowed. Zone ID or an array of zone IDs with optional cleaning times to override the default values per zone."
         },
         "repeats": {
           "name": "Upprepningar",
-          "description": "Antal upprepningar för varje valt rum (så länge det inte är åsidosatt av specialparametrar)."
+          "description": "Number of mowing passes for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "suction_level": {
           "name": "Sugnivå",
-          "description": "Sugnivå för varje valt rum (så länge det inte är åsidosatt av specialparametrar)."
+          "description": "Fan speed for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "water_volume": {
           "name": "Vattenvolym",
-          "description": "Vattenvolym för varje valt rum (så länge det inte är åsidosatt av specialparametrar)."
+          "description": "Water level for every selected zone (unless it is overridden by customized cleaning parameter)."
         }
       }
     },
@@ -778,7 +778,7 @@
     },
     "mower_merge_segments": {
       "name": "Sammanfoga segment",
-      "description": "Sammanfoga rum.",
+      "description": "Merge zones.",
       "fields": {
         "map_id": {
           "name": "Kart ID",
@@ -786,13 +786,13 @@
         },
         "segments": {
           "name": "Segment",
-          "description": "Rums ID."
+          "description": "Zone IDs."
         }
       }
     },
     "mower_split_segments": {
       "name": "Dela segment",
-      "description": "Splitta rum.",
+      "description": "Split zones.",
       "fields": {
         "map_id": {
           "name": "Kart ID",
@@ -800,7 +800,7 @@
         },
         "segment": {
           "name": "Segment",
-          "description": "Rums ID."
+          "description": "Zone ID."
         },
         "line": {
           "name": "Linje",
@@ -824,7 +824,7 @@
     },
     "mower_set_cleaning_sequence": {
       "name": "Ställ in städsekväns",
-      "description": "Välj rumsordningssekvens. (Endast på enheter som stöds)",
+      "description": "Set zone mowing sequence. (Only on supported devices)",
       "fields": {
         "cleaning_sequence": {
           "name": "Städsekväns",
@@ -838,23 +838,23 @@
       "fields": {
         "segment_id": {
           "name": "Segment ID",
-          "description": "Rums ID."
+          "description": "Zone IDs."
         },
         "suction_level": {
           "name": "Sugnivå",
-          "description": "Sugnivå för varje rum."
+          "description": "Suction level for each zone."
         },
         "water_volume": {
           "name": "Vattenvolym",
-          "description": "Vattenvolym för varje rum."
+          "description": "Water volume for each zone."
         },
         "cleaning_mode": {
           "name": "Städläge",
-          "description": "Städning för varje rum (Endast på enheter som stöder moppdukslyftning)."
+          "description": "Cleaning mode for each zone."
         },
         "repeats": {
           "name": "Upprepningar",
-          "description": "Antal städningar för varje rum."
+          "description": "Number of passes for each zone."
         }
       }
     },

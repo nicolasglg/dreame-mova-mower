@@ -22,7 +22,7 @@ Start, stop, and dock your mower, monitor battery and charging status, and more 
 | Total Cleaned Area | Sensor | Cumulative mowed area (m²) |
 | First Cleaning Date | Sensor | Date of the very first mow |
 | Do Not Disturb | Switch | Enable/disable DnD mode |
-| Zone Name | Select | Per-zone name (synced from Dreame app) |
+| Mow [Zone] | Button | One button per zone (e.g. "Tondre Jardin") — starts mowing that zone |
 
 ## Installation
 

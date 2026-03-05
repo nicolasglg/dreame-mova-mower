@@ -324,7 +324,7 @@ mower_rename_segment:
           max: 60
           mode: box
     segment_name:
-      example: "Playroom"
+      example: "Jardin"
       required: true
       selector:
         text:

@@ -313,7 +313,7 @@
           "self_test": "Self test",
           "factory_test": "Factory test",
           "standby": "Standby",
-          "room_cleaning": "Room cleaning",
+          "room_cleaning": "Zone mowing",
           "zone_cleaning": "Zone cleaning",
           "fast_mapping": "Fast mapping",
           "cruising_path": "Cruising on path",
@@ -330,20 +330,20 @@
           "completed": "Completed",
           "cleaning": "Cleaning",
           "zone_cleaning": "Zone cleaning",
-          "room_cleaning": "Room cleaning",
+          "room_cleaning": "Zone mowing",
           "spot_cleaning": "Spot cleaning",
           "fast_mapping": "Fast mapping",
           "cleaning_paused": "Cleaning paused",
-          "room_cleaning_paused": "Room cleaning paused",
+          "room_cleaning_paused": "Zone mowing paused",
           "zone_cleaning_paused": "Zone cleaning paused",
           "spot_cleaning_paused": "Spot cleaning paused",
           "map_cleaning_paused": "Map cleaning paused",
           "docking_paused": "Docking paused",
           "mopping_paused": "Mopping paused",
           "zone_mopping_paused": "Zone mopping paused",
-          "room_mopping_paused": "Room mopping paused",
+          "room_mopping_paused": "Zone mopping paused",
           "zone_docking_paused": "Zone docking paused",
-          "room_docking_paused": "Room docking paused",
+          "room_docking_paused": "Zone docking paused",
           "cruising_path": "Cruising on path",
           "cruising_path_paused": "Cruising on path paused",
           "cruising_point": "Cruising to a point",
@@ -564,23 +564,23 @@
   "services": {
     "mower_clean_segment": {
       "name": "Clean Segment",
-      "description": "Start the cleaning operation in the selected rooms.",
+      "description": "Start the mowing operation in the selected zones.",
       "fields": {
         "segments": {
           "name": "Segments",
-          "description": "List of rooms to be cleaned. Only room's Character or an array of room's character, cleaning times, fan speed and mop mode to override the default values per room."
+          "description": "List of zones to be mowed. Zone ID or an array of zone IDs with optional cleaning times to override the default values per zone."
         },
         "repeats": {
           "name": "Repeats",
-          "description": "Number of cleaning passes for every selected room (unless it is overridden by customized cleaning parameter)."
+          "description": "Number of mowing passes for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "suction_level": {
           "name": "Suction Level",
-          "description": "Fan speed for every selected room (unless it is overridden by customized cleaning parameter)."
+          "description": "Fan speed for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "water_volume": {
           "name": "Water Volume",
-          "description": "Water level for every selected room (unless it is overridden by customized cleaning parameter)."
+          "description": "Water level for every selected zone (unless it is overridden by customized cleaning parameter)."
         }
       }
     },
@@ -784,7 +784,7 @@
     },
     "mower_merge_segments": {
       "name": "Merge Segments",
-      "description": "Merge rooms.",
+      "description": "Merge zones.",
       "fields": {
         "map_id": {
           "name": "Map ID",
@@ -792,13 +792,13 @@
         },
         "segments": {
           "name": "Segments",
-          "description": "Room IDs."
+          "description": "Zone IDs."
         }
       }
     },
     "mower_split_segments": {
       "name": "Split Segments",
-      "description": "Split rooms.",
+      "description": "Split zones.",
       "fields": {
         "map_id": {
           "name": "Map ID",
@@ -806,7 +806,7 @@
         },
         "segment": {
           "name": "Segment",
-          "description": "Room ID."
+          "description": "Zone ID."
         },
         "line": {
           "name": "Line",
@@ -830,7 +830,7 @@
     },
     "mower_set_cleaning_sequence": {
       "name": "Set Cleaning Sequence",
-      "description": "Set room cleaning sequence. (Only on supported devices)",
+      "description": "Set zone mowing sequence. (Only on supported devices)",
       "fields": {
         "cleaning_sequence": {
           "name": "Cleaning sequence",
@@ -844,23 +844,23 @@
       "fields": {
         "segment_id": {
           "name": "Segment ID",
-          "description": "Room IDs."
+          "description": "Zone IDs."
         },
         "suction_level": {
           "name": "Suction Level",
-          "description": "Suction level for each room."
+          "description": "Suction level for each zone."
         },
         "water_volume": {
           "name": "Water Volume",
-          "description": "Water volume for each room."
+          "description": "Water volume for each zone."
         },
         "cleaning_mode": {
           "name": "Cleaning Mode",
-          "description": "Cleaning for each room (only supported on mowers with mop pad lifting feature)."
+          "description": "Cleaning mode for each zone."
         },
         "repeats": {
           "name": "Repeats",
-          "description": "Cleaning times for each room."
+          "description": "Number of passes for each zone."
         }
       }
     },

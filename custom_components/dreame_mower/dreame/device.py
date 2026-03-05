@@ -4239,7 +4239,7 @@ class DreameMowerDevice:
             raise InvalidActionException("Cannot edit segments when temporary map is present")
 
         if self.status.started:
-            raise InvalidActionException("Cannot set room visibility while mower is running")
+            raise InvalidActionException("Cannot set zone visibility while mower is running")
 
         if invisible_segments == "" or not invisible_segments:
             invisible_segments = []
@@ -4296,7 +4296,7 @@ class DreameMowerDevice:
     def set_segment_cleaning_times(self, segment_id: int, cleaning_times: int) -> dict[str, Any] | None:
         """Update cleaning times of a segment on current map."""
         if self.status.started:
-            raise InvalidActionException("Cannot set room cleaning times while mower is running")
+            raise InvalidActionException("Cannot set zone cleaning times while mower is running")
 
         if self._map_manager and not self.status.has_temporary_map:
             return self.set_cleanset(self._map_manager.editor.set_segment_cleaning_times(segment_id, cleaning_times))

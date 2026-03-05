@@ -312,7 +312,7 @@
           "self_test": "Autotest",
           "factory_test": "Test fabryczny",
           "standby": "Gotowość",
-          "room_cleaning": "Sprzątanie pokoju",
+          "room_cleaning": "Zone mowing",
           "zone_cleaning": "Czyszczenie strefy",
           "fast_mapping": "Szybkie mapowanie",
           "cruising_path": "Rejs po ścieżce",
@@ -329,20 +329,20 @@
           "completed": "Zakończone",
           "cleaning": "Sprzątanie",
           "zone_cleaning": "Czyszczenie strefy",
-          "room_cleaning": "Sprzątanie pokoju",
+          "room_cleaning": "Zone mowing",
           "spot_cleaning": "Czyszczenie punktowe",
           "fast_mapping": "Szybkie mapowanie",
           "cleaning_paused": "Czyszczenie wstrzymane",
-          "room_cleaning_paused": "Sprzątanie pokoju wstrzymane",
+          "room_cleaning_paused": "Zone mowing paused",
           "zone_cleaning_paused": "Czyszczenie strefy wstrzymane",
           "spot_cleaning_paused": "Czyszczenie punktowe wstrzymane",
           "map_cleaning_paused": "Czyszczenie mapy wstrzymane",
           "docking_paused": "Dokowanie wstrzymane",
           "mopping_paused": "Mopping wstrzymany",
           "zone_mopping_paused": "Mopowanie strefy wstrzymane",
-          "room_mopping_paused": "Mopowanie pokoju wstrzymane",
+          "room_mopping_paused": "Zone mopping paused",
           "zone_docking_paused": "Dokowanie strefy wstrzymane",
-          "room_docking_paused": "Dokowanie pokoju wstrzymane",
+          "room_docking_paused": "Zone docking paused",
           "cruising_path": "Rejs po ścieżce",
           "cruising_path_paused": "Jazda po ścieżce wstrzymana",
           "cruising_point": "Rejs do celu",
@@ -558,23 +558,23 @@
   "services": {
     "mower_clean_segment": {
       "name": "Czysty odcinek",
-      "description": "Rozpocznij czyszczenie w wybranych pomieszczeniach.",
+      "description": "Start the mowing operation in the selected zones.",
       "fields": {
         "segments": {
           "name": "Segmenty",
-          "description": "Lista pokoi do sprzątania. "
+          "description": "List of zones to be mowed. Zone ID or an array of zone IDs with optional cleaning times to override the default values per zone."
         },
         "repeats": {
           "name": "Powtarza",
-          "description": "Liczba przebiegów czyszczenia dla każdego wybranego pomieszczenia (chyba, że ​​zostanie to zastąpione przez niestandardowy parametr czyszczenia)."
+          "description": "Number of mowing passes for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "suction_level": {
           "name": "Poziom ssania",
-          "description": "Prędkość wentylatora dla każdego wybranego pomieszczenia (chyba że zostanie ona nadpisana przez dostosowany parametr czyszczenia)."
+          "description": "Fan speed for every selected zone (unless it is overridden by customized cleaning parameter)."
         },
         "water_volume": {
           "name": "Objętość wody",
-          "description": "Poziom wody dla każdego wybranego pomieszczenia (chyba, że ​​zostanie on nadpisany przez dostosowany parametr czyszczenia)."
+          "description": "Water level for every selected zone (unless it is overridden by customized cleaning parameter)."
         }
       }
     },
@@ -778,7 +778,7 @@
     },
     "mower_merge_segments": {
       "name": "Połącz segmenty",
-      "description": "Połącz pokoje.",
+      "description": "Merge zones.",
       "fields": {
         "map_id": {
           "name": "Identyfikator mapy",
@@ -786,13 +786,13 @@
         },
         "segments": {
           "name": "Segmenty",
-          "description": "Identyfikatory pokoi."
+          "description": "Zone IDs."
         }
       }
     },
     "mower_split_segments": {
       "name": "Podziel segmenty",
-      "description": "Pokoje podzielone.",
+      "description": "Split zones.",
       "fields": {
         "map_id": {
           "name": "Identyfikator mapy",
@@ -800,7 +800,7 @@
         },
         "segment": {
           "name": "Człon",
-          "description": "Identyfikator pokoju."
+          "description": "Zone ID."
         },
         "line": {
           "name": "Linia",
@@ -824,7 +824,7 @@
     },
     "mower_set_cleaning_sequence": {
       "name": "Ustaw sekwencję czyszczenia",
-      "description": "Ustaw sekwencję sprzątania pokoju. ",
+      "description": "Set zone mowing sequence. (Only on supported devices)",
       "fields": {
         "cleaning_sequence": {
           "name": "Sekwencja czyszczenia",
@@ -838,23 +838,23 @@
       "fields": {
         "segment_id": {
           "name": "Identyfikator segmentu",
-          "description": "Identyfikatory pokoi."
+          "description": "Zone IDs."
         },
         "suction_level": {
           "name": "Poziom ssania",
-          "description": "Poziom ssania dla każdego pomieszczenia."
+          "description": "Suction level for each zone."
         },
         "water_volume": {
           "name": "Objętość wody",
-          "description": "Objętość wody dla każdego pomieszczenia."
+          "description": "Water volume for each zone."
         },
         "cleaning_mode": {
           "name": "Tryb czyszczenia",
-          "description": "Sprzątanie każdego pomieszczenia (obsługiwane tylko w odkurzaczach z funkcją podnoszenia nakładki mopa)."
+          "description": "Cleaning mode for each zone."
         },
         "repeats": {
           "name": "Powtarza",
-          "description": "Godziny sprzątania każdego pokoju."
+          "description": "Number of passes for each zone."
         }
       }
     },
