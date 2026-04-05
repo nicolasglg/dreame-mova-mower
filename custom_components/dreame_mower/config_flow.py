@@ -84,7 +84,7 @@ class DreameMowerOptionsFlowHandler(OptionsFlow):
         if user_input is not None:
             return self.async_create_entry(title="", data={**options, **user_input})
 
-        notify = options[CONF_NOTIFY]
+        notify = options.get(CONF_NOTIFY, list(NOTIFICATION.keys()))
         if isinstance(notify, bool):
             if notify is True:
                 notify = list(NOTIFICATION.keys())
@@ -94,11 +94,11 @@ class DreameMowerOptionsFlowHandler(OptionsFlow):
         data_schema = vol.Schema(
             {vol.Required(CONF_NOTIFY, default=notify): cv.multi_select(NOTIFICATION)}
         )
-        if data[CONF_USERNAME]:
+        if data.get(CONF_USERNAME):
             data_schema = data_schema.extend(
                 {
                     vol.Required(
-                        CONF_COLOR_SCHEME, default=options[CONF_COLOR_SCHEME]
+                        CONF_COLOR_SCHEME, default=options.get(CONF_COLOR_SCHEME, next(iter(MAP_COLOR_SCHEME_LIST)))
                     ): vol.In(list(MAP_COLOR_SCHEME_LIST.keys())),
                     vol.Required(
                         CONF_ICON_SET,
