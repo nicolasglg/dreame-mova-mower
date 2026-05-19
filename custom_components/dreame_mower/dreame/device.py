@@ -890,12 +890,18 @@ class DreameMowerDevice:
                 self._ready = False
                 self.connect_device()
 
+            if self.status.docked:
+                self._reset_current_zone()
+
             if self._map_manager:
                 self._map_manager.editor.refresh_map()
 
     def _charging_status_changed(self, previous_charging_status: Any = None) -> None:
         self._remote_control = False
         if previous_charging_status is not None:
+            if self.status.docked:
+                self._reset_current_zone()
+
             if self._map_manager:
                 self._map_manager.editor.refresh_map()
 
@@ -1476,6 +1482,27 @@ class DreameMowerDevice:
 
             except Exception as ex:
                 _LOGGER.warning("Get Cleaning History failed!: %s", ex)
+
+    def _reset_current_zone(self) -> None:
+        """Clear current mowing zone when the mower is docked."""
+        if (
+            self.current_zone_id is None
+            and self.current_zone_state is None
+            and self.current_zone_raw is None
+        ):
+            return
+
+        _LOGGER.warning(
+            "DREAME_A1_CURRENT_ZONE_RESET previous_zone_id=%s previous_zone_state=%s previous_raw=%s",
+            self.current_zone_id,
+            self.current_zone_state,
+            self.current_zone_raw,
+        )
+        self.current_zone_id = None
+        self.current_zone_state = None
+        self.current_zone_raw = None
+        if self._ready:
+            self._property_changed()
 
     def _property_changed(self) -> None:
         """Call external listener when a property changed"""
