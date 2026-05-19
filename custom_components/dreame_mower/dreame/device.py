@@ -218,6 +218,9 @@ class DreameMowerDevice:
         self.host = host
         self.two_factor_url = None
         self.account_type = account_type
+        self.current_zone_id: int | None = None
+        self.current_zone_state: int | None = None
+        self.current_zone_raw: list | None = None
         self.status = DreameMowerDeviceStatus(self)
         self.capability = DreameMowerDeviceCapability(self)
 
@@ -389,6 +392,33 @@ class DreameMowerDevice:
                         param.get("did"),
                         param.get("value"),
                     )
+
+                    if (
+                        param.get("siid") == 2
+                        and param.get("piid") == 56
+                        and isinstance(param.get("value"), dict)
+                    ):
+                        zone_status = param["value"].get("status")
+                        if zone_status and isinstance(zone_status, list) and len(zone_status) > 0:
+                            current_zone_id = zone_status[0][0]
+                            current_zone_state = zone_status[0][1]
+                            zone_changed = (
+                                self.current_zone_id != current_zone_id
+                                or self.current_zone_state != current_zone_state
+                                or self.current_zone_raw != zone_status
+                            )
+                            self.current_zone_id = current_zone_id
+                            self.current_zone_state = current_zone_state
+                            self.current_zone_raw = zone_status
+                            _LOGGER.warning(
+                                "DREAME_A1_CURRENT_ZONE zone_id=%s zone_state=%s raw=%s",
+                                current_zone_id,
+                                current_zone_state,
+                                zone_status,
+                            )
+                            if zone_changed and self._ready:
+                                self._property_changed()
+
                     properties = [prop for prop in DreameMowerProperty]
                     for prop in properties:
                         if prop in self.property_mapping:
