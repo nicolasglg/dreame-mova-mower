@@ -381,7 +381,14 @@ class DreameMowerDevice:
                 params = []
                 map_params = []
                 for param in message["params"]:
-                    _LOGGER.warning("%s RAW: %s", DREAME_PROPERTY_LOG_PREFIX, param)
+                    _LOGGER.warning(
+                        "%s siid=%s piid=%s did=%s value=%s",
+                        DREAME_PROPERTY_LOG_PREFIX,
+                        param.get("siid"),
+                        param.get("piid"),
+                        param.get("did"),
+                        param.get("value"),
+                    )
                     properties = [prop for prop in DreameMowerProperty]
                     for prop in properties:
                         if prop in self.property_mapping:
