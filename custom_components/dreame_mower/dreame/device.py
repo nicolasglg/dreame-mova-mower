@@ -376,7 +376,7 @@ class DreameMowerDevice:
             return
 
         _LOGGER.debug("Message Callback: %s", message)
-        _LOGGER.warning("%s: %s", DREAME_RAW_EVENT_LOG_PREFIX, message)
+        _LOGGER.debug("%s: %s", DREAME_RAW_EVENT_LOG_PREFIX, message)
 
         if "method" in message:
             self.available = True
@@ -384,7 +384,7 @@ class DreameMowerDevice:
                 params = []
                 map_params = []
                 for param in message["params"]:
-                    _LOGGER.warning(
+                    _LOGGER.debug(
                         "%s siid=%s piid=%s did=%s value=%s",
                         DREAME_PROPERTY_LOG_PREFIX,
                         param.get("siid"),
@@ -399,25 +399,64 @@ class DreameMowerDevice:
                         and isinstance(param.get("value"), dict)
                     ):
                         zone_status = param["value"].get("status")
-                        if zone_status and isinstance(zone_status, list) and len(zone_status) > 0:
-                            current_zone_id = zone_status[0][0]
-                            current_zone_state = zone_status[0][1]
-                            zone_changed = (
-                                self.current_zone_id != current_zone_id
-                                or self.current_zone_state != current_zone_state
-                                or self.current_zone_raw != zone_status
-                            )
-                            self.current_zone_id = current_zone_id
-                            self.current_zone_state = current_zone_state
-                            self.current_zone_raw = zone_status
-                            _LOGGER.warning(
-                                "DREAME_A1_CURRENT_ZONE zone_id=%s zone_state=%s raw=%s",
-                                current_zone_id,
-                                current_zone_state,
-                                zone_status,
-                            )
-                            if zone_changed and self._ready:
-                                self._property_changed()
+                        if zone_status and isinstance(zone_status, list):
+                            valid_zone_status = [
+                                zone
+                                for zone in zone_status
+                                if isinstance(zone, (list, tuple)) and len(zone) >= 2
+                            ]
+                            if not valid_zone_status:
+                                _LOGGER.debug(
+                                    "DREAME_A1_CURRENT_ZONE ignored malformed status payload: %s",
+                                    zone_status,
+                                )
+                            else:
+                                active_zone = None
+
+                                # Full-area mowing can report multiple zones. In that case the active zone
+                                # has been observed with state 0, while pending zones use state -1.
+                                if len(valid_zone_status) > 1:
+                                    for zone in valid_zone_status:
+                                        if zone[1] == 0:
+                                            active_zone = zone
+                                            break
+
+                                # Single-zone mowing has been observed with state 4 for the active zone.
+                                if active_zone is None:
+                                    for zone in valid_zone_status:
+                                        if zone[1] == 4:
+                                            active_zone = zone
+                                            break
+
+                                # Fallback: choose the first zone that is not pending.
+                                if active_zone is None:
+                                    for zone in valid_zone_status:
+                                        if zone[1] != -1:
+                                            active_zone = zone
+                                            break
+
+                                if active_zone is None:
+                                    active_zone = valid_zone_status[0]
+
+                                current_zone_id = active_zone[0]
+                                current_zone_state = active_zone[1]
+                                zone_changed = (
+                                    self.current_zone_id != current_zone_id
+                                    or self.current_zone_state != current_zone_state
+                                    or self.current_zone_raw != zone_status
+                                )
+                                self.current_zone_id = current_zone_id
+                                self.current_zone_state = current_zone_state
+                                self.current_zone_raw = zone_status
+                                _LOGGER.debug(
+                                    "DREAME_A1_CURRENT_ZONE zone_id=%s zone_state=%s raw=%s selected=%s",
+                                    current_zone_id,
+                                    current_zone_state,
+                                    zone_status,
+                                    active_zone,
+                                )
+                                if zone_changed and self._ready:
+                                    self._property_changed()
 
                     properties = [prop for prop in DreameMowerProperty]
                     for prop in properties:
@@ -440,7 +479,7 @@ class DreameMowerDevice:
                                         or prop is DreameMowerProperty.ROBOT_TIME
                                         or prop is DreameMowerProperty.OLD_MAP_DATA
                                     ):
-                                        _LOGGER.warning(
+                                        _LOGGER.debug(
                                             "%s %s: %s",
                                             DREAME_MAP_PROPERTY_LOG_PREFIX,
                                             prop.name,
@@ -889,7 +928,11 @@ class DreameMowerDevice:
                 self._cleaning_history_update = time.time()
                 self._reset_current_zone()
 
-            if status == DreameMowerStatus.CHARGING.value:
+            if (
+                status == DreameMowerStatus.BACK_HOME.value
+                or status == DreameMowerStatus.CHARGING.value
+                or self.status.docked
+            ):
                 self._reset_current_zone()
 
             if previous_status == DreameMowerStatus.OTA.value:
@@ -1494,7 +1537,7 @@ class DreameMowerDevice:
         ):
             return
 
-        _LOGGER.warning(
+        _LOGGER.debug(
             "DREAME_A1_CURRENT_ZONE_RESET previous_zone_id=%s previous_zone_state=%s previous_raw=%s",
             self.current_zone_id,
             self.current_zone_state,
