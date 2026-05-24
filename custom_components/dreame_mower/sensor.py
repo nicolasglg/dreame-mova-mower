@@ -17,6 +17,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.icon import icon_for_battery_level
 
 from .const import (
     DOMAIN,
@@ -116,6 +117,12 @@ SENSORS: tuple[DreameMowerSensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.BATTERY,
         native_unit_of_measurement=UNIT_PERCENT,
         state_class=SensorStateClass.MEASUREMENT,
+        attrs_fn=lambda device: {
+            "icon": icon_for_battery_level(
+                battery_level=device.status.battery_level,
+                charging=device.status.charging,
+            ),
+        },
     ),
     DreameMowerSensorEntityDescription(
         property_key=DreameMowerProperty.BLADES_LEFT,
