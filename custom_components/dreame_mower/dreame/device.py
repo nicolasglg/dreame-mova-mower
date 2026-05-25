@@ -428,15 +428,13 @@ class DreameMowerDevice:
                                             active_zone = zone
                                             break
 
-                                # Fallback: choose the first zone that is not pending.
                                 if active_zone is None:
-                                    for zone in valid_zone_status:
-                                        if zone[1] != -1:
-                                            active_zone = zone
-                                            break
-
-                                if active_zone is None:
-                                    active_zone = valid_zone_status[0]
+                                    _LOGGER.debug(
+                                        "DREAME_A1_CURRENT_ZONE no active zone found, resetting current zone. raw=%s",
+                                        zone_status,
+                                    )
+                                    self._reset_current_zone()
+                                    continue
 
                                 current_zone_id = active_zone[0]
                                 current_zone_state = active_zone[1]
@@ -1529,7 +1527,7 @@ class DreameMowerDevice:
                 _LOGGER.warning("Get Cleaning History failed!: %s", ex)
 
     def _reset_current_zone(self) -> None:
-        """Clear current mowing zone when the mower is docked."""
+        """Clear current mowing zone when no zone is active."""
         if (
             self.current_zone_id is None
             and self.current_zone_state is None
