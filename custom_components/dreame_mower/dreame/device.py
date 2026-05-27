@@ -436,6 +436,19 @@ class DreameMowerDevice:
                                     self._reset_current_zone()
                                     continue
 
+                                if (
+                                        self.status.docked
+                                        or self.status.status is DreameMowerStatus.CHARGING
+                                        or self.status.status is DreameMowerStatus.BACK_HOME
+                                ):
+                                    _LOGGER.debug(
+                                        "DREAME_A1_CURRENT_ZONE ignoring zone update while docked, charging or returning to base. raw=%s selected=%s",
+                                        zone_status,
+                                        active_zone,
+                                    )
+                                    self._reset_current_zone()
+                                    continue
+
                                 current_zone_id = active_zone[0]
                                 current_zone_state = active_zone[1]
                                 zone_changed = (
