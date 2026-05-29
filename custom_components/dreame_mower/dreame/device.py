@@ -4584,9 +4584,9 @@ class DreameMowerDeviceStatus:
 
     def _get_property(self, prop: DreameMowerProperty) -> Any:
         """Helper function for accessing a property from device"""
-        _LOGGER.debug("Getting property: %s", prop)
+        # _LOGGER.debug("Getting property: %s", prop)
         result = self._device.get_property(prop)
-        _LOGGER.debug("Result: %s", result)
+        # _LOGGER.debug("Result: %s", result)
         return result
 
     @property
