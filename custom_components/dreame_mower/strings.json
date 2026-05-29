@@ -173,11 +173,11 @@
           "station_reset": "Station reset",
           "remote_control": "Remote controlling",
           "smart_charging": "Smart charging",
-          "second_cleaning": "Second time cleaning",
+          "second_cleaning": "Second time mowing",
           "human_following": "Human following",
-          "spot_cleaning": "Spot cleaning",
+          "spot_cleaning": "Spot mowing",
           "waiting_for_task": "Waiting for task",
-          "station_cleaning": "Station cleaning",
+          "station_cleaning": "Station mowing",
           "shortcut": "Shortcut",
           "monitoring": "Monitoring",
           "monitoring_paused": "Monitoring paused"
@@ -188,10 +188,10 @@
           "unknown": "Unknown",
           "idle": "[%key:common::state::idle%]",
           "paused": "[%key:common::state::paused%]",
-          "cleaning": "Cleaning",
+          "cleaning": "Mowing",
           "returning": "Returning to dock",
-          "spot_cleaning": "Spot cleaning",
-          "follow_wall_cleaning": "Follow wall cleaning",
+          "spot_cleaning": "Spot mowing",
+          "follow_wall_cleaning": "Follow wall mowing",
           "charging": "Charging",
           "ota": "OTA",
           "fct": "FCT",
@@ -205,11 +205,11 @@
           "factory_test": "Factory test",
           "standby": "Standby",
           "room_cleaning": "Zone mowing",
-          "zone_cleaning": "Zone cleaning",
+          "zone_cleaning": "Zone mowing",
           "fast_mapping": "Fast mapping",
           "cruising_path": "Cruising on path",
           "cruising_point": "Cruising to a point",
-          "summon_clean": "Summon to clean",
+          "summon_clean": "Summon to mow",
           "shortcut": "Shortcut",
           "person_follow": "Person follow"
         }
@@ -218,16 +218,16 @@
         "state": {
           "unknown": "Unknown",
           "completed": "Completed",
-          "cleaning": "Cleaning",
-          "zone_cleaning": "Zone cleaning",
+          "cleaning": "Mowing",
+          "zone_cleaning": "Zone mowing",
           "room_cleaning": "Zone mowing",
-          "spot_cleaning": "Spot cleaning",
+          "spot_cleaning": "Spot mowing",
           "fast_mapping": "Fast mapping",
-          "cleaning_paused": "Cleaning paused",
+          "cleaning_paused": "Mowing paused",
           "room_cleaning_paused": "Zone mowing paused",
-          "zone_cleaning_paused": "Zone cleaning paused",
-          "spot_cleaning_paused": "Spot cleaning paused",
-          "map_cleaning_paused": "Map cleaning paused",
+          "zone_cleaning_paused": "Zone mowing paused",
+          "spot_cleaning_paused": "Spot mowing paused",
+          "map_cleaning_paused": "Map mowing paused",
           "docking_paused": "Docking paused",
           "zone_docking_paused": "Zone docking paused",
           "room_docking_paused": "Zone docking paused",
@@ -235,7 +235,7 @@
           "cruising_path_paused": "Cruising on path paused",
           "cruising_point": "Cruising to a point",
           "cruising_point_paused": "Cruising to a point paused",
-          "summon_clean_paused": "Summon to clean paused",
+          "summon_clean_paused": "Summon to mow paused",
           "returning_to_install_mop": "Returning to install mop",
           "returning_to_remove_mop": "Returning to remove mop"
         }
@@ -285,7 +285,7 @@
           "auto_key_trig": "Internal error",
           "p3v3": "Internal error",
           "camera_idle": "Internal error",
-          "blocked": "Cleanup route is blocked, returning to the dock.",
+          "blocked": "Mowing route is blocked, returning to the dock.",
           "lds_error": "Laser distance sensor error",
           "lds_bumper": "Laser distance sensor bumper error",
           "filter_blocked": "The filter not dry or blocked",
@@ -293,7 +293,7 @@
           "laser": "The 3D obstacle avoidance sensor is malfunctioning.",
           "ultrasonic": "The ultrasonic sensor is malfunctioning.",
           "no_go_zone": "No-Go zone or virtual wall detected.",
-          "route": "Cleanup route is blocked.",
+          "route": "Mowing route is blocked.",
           "restricted": "Detected that the mower-mop is in a restricted area.",
           "station_disconnected": "Base station not powered on",
           "low_battery_turn_off": "Low battery. Robot will shut down soon.",
@@ -330,20 +330,20 @@
       },
       "task_type": {
         "state": {
-          "standard": "Standard cleaning",
-          "standard_paused": "Standard cleaning paused",
-          "custom": "Custom cleaning",
-          "custom_paused": "Custom cleaning paused",
-          "shortcut": "Shortcut cleaning",
-          "shortcut_paused": "Shortcut cleaning paused",
-          "scheduled": "Scheduled cleaning",
-          "scheduled_paused": "Scheduled cleaning paused",
-          "smart": "Smart cleaning",
-          "smart_paused": "Smart cleaning paused",
-          "partial": "Partial cleaning",
-          "partial_paused": "Partial cleaning paused",
-          "summon": "Summon cleaning",
-          "summon_paused": "Summon cleaning paused"
+          "standard": "Standard mowing",
+          "standard_paused": "Standard mowing paused",
+          "custom": "Custom mowing",
+          "custom_paused": "Custom mowing paused",
+          "shortcut": "Shortcut mowing",
+          "shortcut_paused": "Shortcut mowing paused",
+          "scheduled": "Scheduled mowing",
+          "scheduled_paused": "Scheduled mowing paused",
+          "smart": "Smart mowing",
+          "smart_paused": "Smart mowing paused",
+          "partial": "Partial mowing",
+          "partial_paused": "Partial mowing paused",
+          "summon": "Summon mowing",
+          "summon_paused": "Summon mowing paused"
         }
       }
     }
@@ -364,8 +364,8 @@
       }
     },
     "mower_clean_zone": {
-      "name": "Clean Zone",
-      "description": "Start the cleaning operation in the selected area.",
+      "name": "Mow Zone",
+      "description": "Start the mowing operation in the selected area.",
       "fields": {
         "zone": {
           "name": "Zone",
@@ -373,21 +373,21 @@
         },
         "repeats": {
           "name": "Repeats",
-          "description": "Number of cleaning passes for every selected zone."
+          "description": "Number of mowing passes for every selected zone."
         }
       }
     },
     "mower_clean_spot": {
-      "name": "Clean Spot",
-      "description": "Start the cleaning operation in the selected points on the map.",
+      "name": "Mow Spot",
+      "description": "Start the mowing operation in the selected points on the map.",
       "fields": {
         "points": {
           "name": "Points",
-          "description": "List of coordinates to be cleaned."
+          "description": "List of coordinates to be mowed."
         },
         "repeats": {
           "name": "Repeats",
-          "description": "Number of cleaning passes for every selected zone."
+          "description": "Number of mowing passes for every selected zone."
         }
       }
     },
@@ -592,26 +592,26 @@
       }
     },
     "mower_set_cleaning_sequence": {
-      "name": "Set Cleaning Sequence",
+      "name": "Set Mowing Sequence",
       "description": "Set zone mowing sequence. (Only on supported devices)",
       "fields": {
         "cleaning_sequence": {
-          "name": "Cleaning sequence",
-          "description": "Segment ID list of cleaning sequence."
+          "name": "Mowing sequence",
+          "description": "Segment ID list of mowing sequence."
         }
       }
     },
     "mower_set_custom_cleaning": {
-      "name": "Set Custom Cleaning",
-      "description": "Set custom cleaning parameters. (Only on supported devices)",
+      "name": "Set Custom Mowing",
+      "description": "Set custom mowing parameters. (Only on supported devices)",
       "fields": {
         "segment_id": {
           "name": "Segment ID",
           "description": "Zone IDs."
         },
         "cleaning_mode": {
-          "name": "Cleaning Mode",
-          "description": "Cleaning mode for each zone."
+          "name": "Mowing Mode",
+          "description": "Mowing mode for each zone."
         },
         "repeats": {
           "name": "Repeats",
