@@ -4823,19 +4823,40 @@ class DreameMowerDeviceStatus:
         faults = self._get_property(DreameMowerProperty.FAULTS)
         return 0 if faults == "" or faults == " " else faults
 
+    def _normalize_error_code(self, value: int | None) -> DreameMowerErrorCode | None:
+        """Return a model-aware normalized error code."""
+        if value is None or value not in DreameMowerErrorCode._value2member_map_:
+            return None
+
+        # A2 2000 (dreame.mower.g2568c) reports raw code 54 when the
+        # battery reaches 15% and the mower returns to charge. On A1 Pro,
+        # code 54 is still treated as an edge sensor error, so keep this
+        # override model-specific and gated by the low-battery threshold.
+        if (
+            value == DreameMowerErrorCode.EDGE.value
+            and self._device.info
+            and self._device.info.model == "dreame.mower.g2568c"
+            and self.battery_level is not None
+            and self.battery_level <= 15
+        ):
+            return DreameMowerErrorCode.BATTERY_LOW
+
+        return DreameMowerErrorCode(value)
+
     @property
     def error(self) -> DreameMowerErrorCode:
         """Return error of the device."""
         value = self._get_property(DreameMowerProperty.ERROR)
-        if value is not None and value in DreameMowerErrorCode._value2member_map_:
-            if value in (
-                DreameMowerErrorCode.LOW_BATTERY_TURN_OFF.value,
-                DreameMowerErrorCode.UNKNOWN_WARNING_2.value,
-                DreameMowerErrorCode.MOWING_COMPLETE.value,
-                DreameMowerErrorCode.TASK_CANCELLED.value,
+        error_code = self._normalize_error_code(value)
+        if error_code:
+            if error_code in (
+                DreameMowerErrorCode.LOW_BATTERY_TURN_OFF,
+                DreameMowerErrorCode.UNKNOWN_WARNING_2,
+                DreameMowerErrorCode.MOWING_COMPLETE,
+                DreameMowerErrorCode.TASK_CANCELLED,
             ):
                 return DreameMowerErrorCode.NO_ERROR
-            return DreameMowerErrorCode(value)
+            return error_code
         if value is not None:
             _LOGGER.debug("ERROR_CODE not supported: %s", value)
         return DreameMowerErrorCode.UNKNOWN
