@@ -32,8 +32,8 @@ MAP_OBJECTS: Final = {
     "name": "Zone Names",
     "name_background": "Zone Name Background",
     "order": "Zone Order",
-    "cleaning_times": "Zone Cleaning Times",
-    "cleaning_mode": "Zone Cleaning Mode",
+    "cleaning_times": "Zone Mowing Times",
+    "cleaning_mode": "Zone Mowing Mode",
     "path": "Path",
     "no_go": "No Go Zones",
     "virtual_wall": "Virtual Walls",
@@ -42,7 +42,7 @@ MAP_OBJECTS: Final = {
     "active_point": "Active Points",
     "charger": "Charger Icon",
     "robot": "Robot Icon",
-    "cleaning_direction": "Cleaning Direction",
+    "cleaning_direction": "Mowing Direction",
     "obstacle": "AI Obstacle",
     "pet": "Pet",
     "material": "Floor Material",
@@ -161,10 +161,10 @@ NOTIFICATION_ID_2FA_LOGIN: Final = "2fa_login"
 
 NOTIFICATION_CLEANUP_COMPLETED: Final = "### Cleanup completed"
 NOTIFICATION_RESUME_CLEANING: Final = (
-    "### Resume Cleaning Mode\nThe robot will automatically resume unfinished cleaning tasks after charging its battery to 80%."
+    "### Resume Mowing Mode\nThe robot will automatically resume unfinished mowing tasks after charging its battery to 80%."
 )
 NOTIFICATION_RESUME_CLEANING_NOT_PERFORMED: Final = (
-    "### The robot is in the DND period\nRobot will resume cleaning after the DND period ends."
+    "### The robot is in the DND period\nRobot will resume mowing after the DND period ends."
 )
 NOTIFICATION_REPLACE_MAP: Final = "### A new map has been generated\nYou need to save or discard map before using it."
 NOTIFICATION_REPLACE_MULTI_MAP: Final = (

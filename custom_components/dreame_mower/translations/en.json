@@ -214,8 +214,8 @@
       "cleangenius": {
         "state": {
           "off": "Off",
-          "routine_cleaning": "Routine Cleaning",
-          "deep_cleaning": "Deep Cleaning"
+          "routine_cleaning": "Routine Mowing",
+          "deep_cleaning": "Deep Mowing"
         }
       },
       "auto_recleaning": {
@@ -272,17 +272,17 @@
           "returning_install_mop": "Returning to install mop",
           "returning_remove_mop": "Returning to remove mop",
           "water_check": "Water checking",
-          "clean_add_water": "Cleaning and adding water",
+          "clean_add_water": "Mowing and adding water",
           "washing_paused": "Washing paused",
           "auto_emptying": "Auto-Emptying",
           "remote_control": "Remote controlling",
           "smart_charging": "Smart charging",
-          "second_cleaning": "Second time cleaning",
+          "second_cleaning": "Second mowing",
           "human_following": "Human following",
-          "spot_cleaning": "Spot cleaning",
+          "spot_cleaning": "Spot mowing",
           "returning_auto_empty": "Returning to Auto-Empty",
           "waiting_for_task": "Waiting for task",
-          "station_cleaning": "Station cleaning",
+          "station_cleaning": "Station mowing",
           "returning_to_drain": "Returning to drain",
           "draining": "Draining",
           "auto_water_draining": "Auto water draining",
@@ -297,10 +297,10 @@
           "unknown": "Unknown",
           "idle": "Idle",
           "paused": "Paused",
-          "cleaning": "Cleaning",
+          "cleaning": "Mowing",
           "returning": "Returning to dock",
-          "spot_cleaning": "Spot cleaning",
-          "follow_wall_cleaning": "Follow wall cleaning",
+          "spot_cleaning": "Spot mowing",
+          "follow_wall_cleaning": "Follow wall mowing",
           "charging": "Charging",
           "ota": "OTA",
           "fct": "FCT",
@@ -314,7 +314,7 @@
           "factory_test": "Factory test",
           "standby": "Standby",
           "room_cleaning": "Zone mowing",
-          "zone_cleaning": "Zone cleaning",
+          "zone_cleaning": "Zone mowing",
           "fast_mapping": "Fast mapping",
           "cruising_path": "Cruising on path",
           "cruising_point": "Cruising to a point",
@@ -328,16 +328,16 @@
         "state": {
           "unknown": "Unknown",
           "completed": "Completed",
-          "cleaning": "Cleaning",
-          "zone_cleaning": "Zone cleaning",
+          "cleaning": "Mowing",
+          "zone_cleaning": "Zone mowing",
           "room_cleaning": "Zone mowing",
-          "spot_cleaning": "Spot cleaning",
+          "spot_cleaning": "Spot mowing",
           "fast_mapping": "Fast mapping",
-          "cleaning_paused": "Cleaning paused",
+          "cleaning_paused": "Mowing paused",
           "room_cleaning_paused": "Zone mowing paused",
-          "zone_cleaning_paused": "Zone cleaning paused",
-          "spot_cleaning_paused": "Spot cleaning paused",
-          "map_cleaning_paused": "Map cleaning paused",
+          "zone_cleaning_paused": "Zone mowing paused",
+          "spot_cleaning_paused": "Spot mowing paused",
+          "map_cleaning_paused": "Map mowing paused",
           "docking_paused": "Docking paused",
           "mopping_paused": "Mopping paused",
           "zone_mopping_paused": "Zone mopping paused",
@@ -506,7 +506,7 @@
           "drying": "Drying",
           "paused": "Paused",
           "returning": "Returning to wash",
-          "clean_add_water": "Cleaning and adding water",
+          "clean_add_water": "Mowing and adding water",
           "adding_water": "Adding water"
         }
       },
@@ -516,7 +516,7 @@
           "no_water_left_dismiss": "Please check the clean water tank.",
           "no_water_left": "The water in the clean water tank is about to be used up. Check and fill the clean water tank promptly.",
           "no_water_left_after_clean": "Mop pad has been cleaned. Detected that the water in the clean water tank is insufficient, please fill the clean water tank and empty the used water tank.",
-          "no_water_for_clean": "Low water level in the clean water tank. Robot has switched to Mowering Mode.",
+          "no_water_for_clean": "Low water level in the clean water tank. Robot has switched to Mowing Mode.",
           "low_water": "About to run out of water. Please fill the clean water tank.",
           "tank_not_installed": "The clean water tank is not installed."
         }
@@ -541,22 +541,22 @@
       },
       "task_type": {
         "state": {
-          "standard": "Standard cleaning",
-          "standard_paused": "Standard cleaning paused",
-          "custom": "Custom cleaning",
-          "custom_paused": "Custom cleaning paused",
-          "shortcut": "Shortcut cleaning",
-          "shortcut_paused": "Shortcut cleaning paused",
-          "scheduled": "Scheduled cleaning",
-          "scheduled_paused": "Scheduled cleaning paused",
-          "smart": "Smart cleaning",
-          "smart_paused": "Smart cleaning paused",
-          "partial": "Partial cleaning",
-          "partial_paused": "Partial cleaning paused",
-          "summon": "Summon cleaning",
-          "summon_paused": "Summon cleaning paused",
-          "water_stain": "Water stain cleaning",
-          "water_stain_paused": "Water stain cleaning paused"
+          "standard": "Standard mowing",
+          "standard_paused": "Standard mowing paused",
+          "custom": "Custom mowing",
+          "custom_paused": "Custom mowing paused",
+          "shortcut": "Shortcut mowing",
+          "shortcut_paused": "Shortcut mowing paused",
+          "scheduled": "Scheduled mowing",
+          "scheduled_paused": "Scheduled mowing paused",
+          "smart": "Smart mowing",
+          "smart_paused": "Smart mowing paused",
+          "partial": "Partial mowing",
+          "partial_paused": "Partial mowing paused",
+          "summon": "Summon mowing",
+          "summon_paused": "Summon mowing paused",
+          "water_stain": "Water stain mowing",
+          "water_stain_paused": "Water stain mowing paused"
         }
       }
     }
@@ -585,8 +585,8 @@
       }
     },
     "mower_clean_zone": {
-      "name": "Clean Zone",
-      "description": "Start the cleaning operation in the selected area.",
+      "name": "Mow Zone",
+      "description": "Start the mowing operation in the selected area.",
       "fields": {
         "zone": {
           "name": "Zone",
@@ -594,7 +594,7 @@
         },
         "repeats": {
           "name": "Repeats",
-          "description": "Number of cleaning passes for every selected zone."
+          "description": "Number of mowing passes for every selected zone."
         },
         "suction_level": {
           "name": "Suction Level",
@@ -607,16 +607,16 @@
       }
     },
     "mower_clean_spot": {
-      "name": "Clean Spot",
-      "description": "Start the cleaning operation in the selected points on the map.",
+      "name": "Mow Spot",
+      "description": "Start the mowing operation in the selected points on the map.",
       "fields": {
         "points": {
           "name": "Points",
-          "description": "List of coordinates to be cleaned."
+          "description": "List of coordinates to be mowed."
         },
         "repeats": {
           "name": "Repeats",
-          "description": "Number of cleaning passes for every selected zone."
+          "description": "Number of mowing passes for every selected zone."
         },
         "suction_level": {
           "name": "Suction Level",
@@ -829,18 +829,18 @@
       }
     },
     "mower_set_cleaning_sequence": {
-      "name": "Set Cleaning Sequence",
+      "name": "Set Mowing Sequence",
       "description": "Set zone mowing sequence. (Only on supported devices)",
       "fields": {
         "cleaning_sequence": {
-          "name": "Cleaning sequence",
-          "description": "Segment ID list of cleaning sequence."
+          "name": "Mowing sequence",
+          "description": "Segment ID list of mowing sequence."
         }
       }
     },
     "mower_set_custom_cleaning": {
-      "name": "Set Custom Cleaning",
-      "description": "Set custom cleaning parameters. (Only on supported devices)",
+      "name": "Set Custom Mowing",
+      "description": "Set custom mowing parameters. (Only on supported devices)",
       "fields": {
         "segment_id": {
           "name": "Segment ID",
@@ -855,8 +855,8 @@
           "description": "Water volume for each zone."
         },
         "cleaning_mode": {
-          "name": "Cleaning Mode",
-          "description": "Cleaning mode for each zone."
+          "name": "Mowing Mode",
+          "description": "Mowing mode for each zone."
         },
         "repeats": {
           "name": "Repeats",
