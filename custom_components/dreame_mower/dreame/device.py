@@ -221,6 +221,8 @@ class DreameMowerDevice:
         self.current_zone_id: int | None = None
         self.current_zone_state: int | None = None
         self.current_zone_raw: list | None = None
+        self.a2_cutting_height: float | None = None
+        self.a2_cutting_height_raw: Any = None
         self.status = DreameMowerDeviceStatus(self)
         self.capability = DreameMowerDeviceCapability(self)
 
@@ -457,6 +459,37 @@ class DreameMowerDevice:
                                 )
                                 if zone_changed and self._ready:
                                     self._property_changed()
+
+                    if (
+                        param.get("siid") == 6
+                        and param.get("piid") == 2
+                        and self._is_a2_model
+                    ):
+                        # On A1 Pro this property is FRAME_INFO for map data. Community A2 / A2 1200
+                        # logs show the same siid/piid reporting cutting height as
+                        # [height * 10, 0, true, 2]. Keep this as an A2-only debug/read-only
+                        # value until setting support is validated on hardware.
+                        value = param.get("value")
+                        height = None
+                        if isinstance(value, (list, tuple)) and len(value) > 0:
+                            try:
+                                height = float(value[0]) / 10
+                            except (TypeError, ValueError):
+                                height = None
+
+                        height_changed = (
+                            self.a2_cutting_height != height
+                            or self.a2_cutting_height_raw != value
+                        )
+                        self.a2_cutting_height = height
+                        self.a2_cutting_height_raw = value
+                        _LOGGER.debug(
+                            "DREAME_A2_CUTTING_HEIGHT height=%s raw=%s",
+                            height,
+                            value,
+                        )
+                        if height_changed and self._ready:
+                            self._property_changed()
 
                     properties = [prop for prop in DreameMowerProperty]
                     for prop in properties:
@@ -4504,6 +4537,13 @@ class DreameMowerDevice:
     def name(self) -> str:
         """Return the name of the device."""
         return self._name
+
+    @property
+    def _is_a2_model(self) -> bool:
+        """Return True for community-reported Dreame A2/A2 1200 models."""
+        if not self.info or not self.info.model:
+            return False
+        return self.info.model.startswith(("dreame.mower.g2408", "dreame.mower.g2568"))
 
     @property
     def device_connected(self) -> bool:

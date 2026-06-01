@@ -309,6 +309,20 @@ SENSORS: tuple[DreameMowerSensorEntityDescription, ...] = (
         },
     ),
     DreameMowerSensorEntityDescription(
+        key="a2_cutting_height",
+        name="A2 Cutting Height",
+        icon="mdi:grass",
+        native_unit_of_measurement="cm",
+        value_fn=lambda value, device: device.a2_cutting_height,
+        exists_fn=lambda description, device: device._is_a2_model,
+        attrs_fn=lambda device: {
+            ATTR_VALUE: device.a2_cutting_height_raw,
+            "source": "siid=6 piid=2",
+            "encoding": "raw[0] / 10",
+        },
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    DreameMowerSensorEntityDescription(
         key="firmware_version",
         icon="mdi:chip",
         value_fn=lambda value, device: device.info.version,
