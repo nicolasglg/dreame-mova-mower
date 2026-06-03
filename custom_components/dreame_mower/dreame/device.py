@@ -415,11 +415,10 @@ class DreameMowerDevice:
 
                                 # Full-area mowing can report multiple zones. In that case the active zone
                                 # has been observed with state 0, while pending zones use state -1.
-                                if len(valid_zone_status) > 1:
-                                    for zone in valid_zone_status:
-                                        if zone[1] == 0:
-                                            active_zone = zone
-                                            break
+                                for zone in valid_zone_status:
+                                    if zone[1] == 0:
+                                        active_zone = zone
+                                        break
 
                                 # Single-zone mowing has been observed with state 4 for the active zone.
                                 if active_zone is None:
@@ -956,7 +955,8 @@ class DreameMowerDevice:
     def _charging_status_changed(self, previous_charging_status: Any = None) -> None:
         self._remote_control = False
         if previous_charging_status is not None:
-            self._reset_current_zone()
+            if self.status.docked or self.status.charging:
+                self._reset_current_zone()
 
             if self._map_manager:
                 self._map_manager.editor.refresh_map()
