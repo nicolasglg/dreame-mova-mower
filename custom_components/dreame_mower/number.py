@@ -29,9 +29,10 @@ class DreameMowerNumberEntityDescription(DreameMowerEntityDescription, NumberEnt
 
     mode: NumberMode = NumberMode.AUTO
     post_action: DreameMowerAction = None
-    set_fn: Callable[[object, int]] = None
-    max_value_fn: Callable[[object], int] = None
-    min_value_fn: Callable[[object], int] = None
+    set_fn: Callable[[object, int | float], object] | None = None
+    value_type: Callable[[float], int | float] = int
+    max_value_fn: Callable[[object], int | float] | None = None
+    min_value_fn: Callable[[object], int | float] | None = None
 
 
 NUMBERS: tuple[DreameMowerNumberEntityDescription, ...] = (
@@ -45,6 +46,20 @@ NUMBERS: tuple[DreameMowerNumberEntityDescription, ...] = (
         native_unit_of_measurement=UNIT_PERCENT,
         entity_category=EntityCategory.CONFIG,
         post_action=DreameMowerAction.TEST_SOUND,
+    ),
+    DreameMowerNumberEntityDescription(
+        key="a2_cutting_height",
+        name="A2 Cutting Height",
+        icon="mdi:grass",
+        mode=NumberMode.SLIDER,
+        native_min_value=3,
+        native_max_value=7,
+        native_step=0.5,
+        native_unit_of_measurement="cm",
+        value_type=float,
+        value_fn=lambda value, device: device.a2_cutting_height,
+        exists_fn=lambda description, device: device._is_a2_model,
+        set_fn=lambda device, value: device.set_a2_cutting_height(value),
     ),
 )
 
@@ -65,6 +80,8 @@ async def async_setup_entry(
 
 class DreameMowerNumberEntity(DreameMowerEntity, NumberEntity):
     """Defines a Dreame Mower number."""
+
+    entity_description: DreameMowerNumberEntityDescription
 
     def __init__(
         self,
@@ -104,7 +121,7 @@ class DreameMowerNumberEntity(DreameMowerEntity, NumberEntity):
         if not self.available:
             raise HomeAssistantError("Entity unavailable")
 
-        value = int(value)
+        value = self.entity_description.value_type(value)
         if self.entity_description.format_fn is not None:
             value = self.entity_description.format_fn(value, self.device)
 

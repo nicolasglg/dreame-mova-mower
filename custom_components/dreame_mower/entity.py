@@ -64,7 +64,7 @@ class DreameMowerEntityDescription:
     )
     value_fn: Callable[[object, object], Any] = None
     value_int_fn: Callable[[object, str], int] = None
-    format_fn: Callable[[str, object], Any] = None
+    format_fn: Callable[[Any, object], Any] | None = None
     available_fn: Callable[[object], bool] = None
     icon_fn: Callable[[str, object], str] = None
     name_fn: Callable[[str, object], str] = None

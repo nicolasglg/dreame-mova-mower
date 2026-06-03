@@ -2048,6 +2048,55 @@ class DreameMowerDevice:
             raise InvalidActionException("Unable to call action")
         raise InvalidActionException("Invalid action")
 
+    def set_a2_cutting_height(self, value: float) -> bool:
+        """Set A2 / A2 1200 cutting height using the community-validated payload."""
+        if not self._is_a2_model:
+            raise InvalidActionException("A2 cutting height is only available on A2 models")
+
+        try:
+            height = float(value)
+        except (TypeError, ValueError):
+            raise InvalidValueException("Invalid cutting height") from None
+
+        if height < 3 or height > 7 or abs((height * 2) - round(height * 2)) > 0.0001:
+            raise InvalidValueException("Cutting height must be between 3 and 7 cm in 0.5 cm steps")
+
+        raw_height = int(round(height * 10))
+        payload = [raw_height, 0, True, 2]
+        previous_height = self.a2_cutting_height
+        previous_raw = self.a2_cutting_height_raw
+
+        self.schedule_update(10)
+        self.a2_cutting_height = height
+        self.a2_cutting_height_raw = payload
+        self._last_change = time.time()
+        self._property_changed()
+
+        try:
+            result = self._protocol.set_property(6, 2, payload)
+            if result is None or result[0]["code"] != 0:
+                _LOGGER.error(
+                    "A2 cutting height not updated: %s -> %s payload=%s",
+                    previous_height,
+                    height,
+                    payload,
+                )
+                self.a2_cutting_height = previous_height
+                self.a2_cutting_height_raw = previous_raw
+                self._property_changed()
+                self.schedule_update(2)
+                return False
+
+            _LOGGER.info("Update A2 cutting height: %s -> %s", previous_height, height)
+            self.schedule_update(2)
+            return True
+        except Exception as ex:
+            self.a2_cutting_height = previous_height
+            self.a2_cutting_height_raw = previous_raw
+            self._property_changed()
+            self.schedule_update(1)
+            raise DeviceUpdateFailedException("Set A2 cutting height failed: %s", ex) from None
+
     def set_property(
         self,
         prop: (
