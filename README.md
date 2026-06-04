@@ -23,10 +23,10 @@ Start, stop, and dock your mower, monitor battery and charging status, and more 
 | State | Sensor | What the mower is doing (mowing, charging, idle, error) |
 | Charging Status | Sensor | Charging or not |
 | Firmware Version | Sensor | Installed firmware |
-| Cleaning Count | Sensor | Total number of mowing sessions |
-| Total Cleaning Time | Sensor | Cumulative mowing time (minutes) |
-| Total Cleaned Area | Sensor | Cumulative mowed area (m²) |
-| First Cleaning Date | Sensor | Date of the very first mow |
+| Mowing Sessions | Sensor | Total number of mowing sessions |
+| Total Mowing Time | Sensor | Cumulative mowing time (minutes) |
+| Total Mowed Area | Sensor | Cumulative mowed area (m²) |
+| First Mowing Date | Sensor | Date of the very first mow |
 | Do Not Disturb | Switch | Enable/disable DnD mode |
 | Stop Mowing | Button | Stop current mowing task and return to dock |
 | Error notification | Persistent notification | Automatic alert when the mower reports an error (translated in FR/EN) |

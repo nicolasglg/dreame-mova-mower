@@ -244,6 +244,14 @@ class DreameMowerDataUpdateCoordinator(DataUpdateCoordinator[DreameMowerDevice])
                         value = prop.get("value")
                         if value is not None and value > 0 and value in DreameMowerErrorCode._value2member_map_:
                             error_code = DreameMowerErrorCode(value)
+                            if (
+                                error_code is DreameMowerErrorCode.EDGE
+                                and self._device.info
+                                and self._device.info.model == "dreame.mower.g2568c"
+                                and self._device.status.battery_level is not None
+                                and self._device.status.battery_level <= 15
+                            ):
+                                error_code = DreameMowerErrorCode.BATTERY_LOW
                             lang = self.hass.config.language
                             desc = None
                             if lang == "fr":
