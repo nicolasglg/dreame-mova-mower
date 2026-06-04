@@ -1189,28 +1189,56 @@ class DreameMowerDevice:
             self._map_manager.editor.refresh_map()
 
     def _build_map_from_cloud_data(self) -> None:
-        """Build map data from cloud MAP batch keys for A1 Pro (no MQTT map support)."""
+        """Build map data from cloud MAP batch keys."""
         if not self.cloud_connected:
             return
 
         try:
-            map_keys = [f"MAP.{i}" for i in range(28)]
-            response = self._protocol.cloud.get_batch_device_datas(map_keys)
-            if not response:
-                _LOGGER.warning("No MAP data from cloud")
+            cloud = self._protocol.cloud
+            if cloud is None:
                 return
 
             raw_parts = []
-            for i in range(28):
-                val = response.get(f"MAP.{i}")
-                if val:
-                    raw_parts.append(val)
-            if not raw_parts:
+            map_json = None
+            last_decode_error = None
+            decoder = json.JSONDecoder()
+            chunk_size = 28
+            max_map_parts = 224
+
+            for start in range(0, max_map_parts, chunk_size):
+                map_keys = [f"MAP.{i}" for i in range(start, start + chunk_size)]
+                response = cloud.get_batch_device_datas(map_keys)
+                if not response:
+                    if start == 0:
+                        _LOGGER.warning("No MAP data from cloud")
+                    break
+
+                new_values = []
+                for i in range(start, start + chunk_size):
+                    val = response.get(f"MAP.{i}")
+                    if val:
+                        new_values.append(str(val))
+
+                if not new_values:
+                    break
+
+                raw_parts.extend(new_values)
+                raw_json = "".join(raw_parts)
+                try:
+                    map_json, _ = decoder.raw_decode(raw_json)
+                    _LOGGER.debug(
+                        "Decoded cloud MAP data from %d parts (%d chars)",
+                        len(raw_parts), len(raw_json),
+                    )
+                    break
+                except json.JSONDecodeError as ex:
+                    last_decode_error = ex
+
+            if map_json is None:
+                if last_decode_error is not None:
+                    raise last_decode_error
                 return
 
-            raw_json = "".join(raw_parts)
-            decoder = json.JSONDecoder()
-            map_json, _ = decoder.raw_decode(raw_json)
             if isinstance(map_json, list):
                 # MAP data is wrapped: [json_string, ...]
                 for item in map_json:
