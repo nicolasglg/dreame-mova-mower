@@ -436,9 +436,9 @@ class DreameMowerDevice:
                                     continue
 
                                 if (
-                                        self.status.docked
-                                        or self.status.status is DreameMowerStatus.CHARGING
-                                        or self.status.status is DreameMowerStatus.BACK_HOME
+                                    self.status.docked
+                                    or self.status.status == DreameMowerStatus.CHARGING.value
+                                    or self.status.status == DreameMowerStatus.BACK_HOME.value
                                 ):
                                     _LOGGER.debug(
                                         "DREAME_A1_CURRENT_ZONE ignoring zone update while docked, charging or returning to base. raw=%s selected=%s",
