@@ -214,8 +214,8 @@
       "cleangenius": {
         "state": {
           "off": "Désactivé",
-          "routine_cleaning": "Nettoyage courant",
-          "deep_cleaning": "Nettoyage en profondeur"
+          "routine_cleaning": "Tonte courante",
+          "deep_cleaning": "Tonte approfondie"
         }
       },
       "auto_recleaning": {
@@ -277,12 +277,12 @@
           "auto_emptying": "Vidage automatique",
           "remote_control": "Contrôle à distance",
           "smart_charging": "Chargement intelligent",
-          "second_cleaning": "Deuxième nettoyage",
+          "second_cleaning": "Deuxième tonte",
           "human_following": "Suivi humain",
-          "spot_cleaning": "Nettoyage des taches",
+          "spot_cleaning": "Tonte localisée",
           "returning_auto_empty": "Retour à Vider automatiquement",
           "waiting_for_task": "En attente de tâche",
-          "station_cleaning": "Nettoyage des gares",
+          "station_cleaning": "Tonte à la station",
           "returning_to_drain": "Retour à l'égout",
           "draining": "Évacuation",
           "auto_water_draining": "Vidange automatique de l'eau",
@@ -299,10 +299,10 @@
           "unknown": "Inconnu",
           "idle": "Inactif",
           "paused": "En pause",
-          "cleaning": "Nettoyage",
+          "cleaning": "Tonte",
           "returning": "Retour à la station",
-          "spot_cleaning": "Nettoyage localisé",
-          "follow_wall_cleaning": "Nettoyage le long des murs",
+          "spot_cleaning": "Tonte localisée",
+          "follow_wall_cleaning": "Tonte le long des bordures",
           "charging": "En charge",
           "ota": "OTA",
           "fct": "FCT",
@@ -316,7 +316,7 @@
           "factory_test": "Test usine",
           "standby": "En veille",
           "room_cleaning": "Tonte d'une zone",
-          "zone_cleaning": "Nettoyage d'une zone",
+          "zone_cleaning": "Tonte d'une zone",
           "fast_mapping": "Cartographie rapide",
           "cruising_path": "Croisière sur chemin",
           "cruising_point": "Croisière vers un point",
@@ -330,16 +330,16 @@
         "state": {
           "unknown": "Inconnu",
           "completed": "Terminée",
-          "cleaning": "Nettoyage",
-          "zone_cleaning": "Nettoyage d'une zone",
+          "cleaning": "Tonte",
+          "zone_cleaning": "Tonte d'une zone",
           "room_cleaning": "Tonte d'une zone",
-          "spot_cleaning": "Nettoyage localisé",
+          "spot_cleaning": "Tonte localisée",
           "fast_mapping": "Cartographie rapide",
-          "cleaning_paused": "Nettoyage mis en pause",
+          "cleaning_paused": "Tonte mise en pause",
           "room_cleaning_paused": "Tonte de la zone mise en pause",
-          "zone_cleaning_paused": "Nettoyage de la zone mis en pause",
-          "spot_cleaning_paused": "Nettoyage localisé mis en pause",
-          "map_cleaning_paused": "Map cleaning paused",
+          "zone_cleaning_paused": "Tonte de la zone mise en pause",
+          "spot_cleaning_paused": "Tonte localisée mise en pause",
+          "map_cleaning_paused": "Tonte de la carte mise en pause",
           "docking_paused": "Retour à la station mis en pause",
           "mopping_paused": "Lavage mis en pause",
           "zone_mopping_paused": "Lavage d'une zone mis en pause",
@@ -538,20 +538,20 @@
       },
       "task_type": {
         "state": {
-          "standard": "Nettoyage standard",
-          "standard_paused": "Nettoyage standard en pause",
-          "custom": "Nettoyage personnalisé",
-          "custom_paused": "Nettoyage personnalisé suspendu",
-          "shortcut": "Raccourci nettoyage",
-          "shortcut_paused": "Raccourci nettoyage en pause",
-          "scheduled": "Nettoyage programmé",
-          "scheduled_paused": "Nettoyage programmé suspendu",
-          "smart": "Nettoyage intelligent",
-          "smart_paused": "Nettoyage intelligent en pause",
-          "partial": "Nettoyage partiel",
-          "partial_paused": "Nettoyage partiel en pause",
-          "summon": "Invoquer le nettoyage",
-          "summon_paused": "Nettoyage d'invocation suspendu",
+          "standard": "Tonte standard",
+          "standard_paused": "Tonte standard en pause",
+          "custom": "Tonte personnalisée",
+          "custom_paused": "Tonte personnalisée suspendue",
+          "shortcut": "Raccourci de tonte",
+          "shortcut_paused": "Raccourci de tonte en pause",
+          "scheduled": "Tonte programmée",
+          "scheduled_paused": "Tonte programmée suspendue",
+          "smart": "Tonte intelligente",
+          "smart_paused": "Tonte intelligente en pause",
+          "partial": "Tonte partielle",
+          "partial_paused": "Tonte partielle en pause",
+          "summon": "Tonte à la demande",
+          "summon_paused": "Tonte à la demande suspendue",
           "water_stain": "Nettoyage des taches d'eau",
           "water_stain_paused": "Nettoyage des taches d'eau interrompu"
         }
@@ -582,8 +582,8 @@
       }
     },
     "mower_clean_zone": {
-      "name": "Zone propre",
-      "description": "Démarrez l'opération de nettoyage dans la zone sélectionnée.",
+      "name": "Tondre une zone",
+      "description": "Démarrez la tonte dans la zone sélectionnée.",
       "fields": {
         "zone": {
           "name": "Zone",
@@ -591,7 +591,7 @@
         },
         "repeats": {
           "name": "Répétitions",
-          "description": "Nombre de passes de nettoyage pour chaque zone sélectionnée."
+          "description": "Nombre de passes de tonte pour chaque zone sélectionnée."
         },
         "suction_level": {
           "name": "Niveau d'aspiration",
@@ -604,16 +604,16 @@
       }
     },
     "mower_clean_spot": {
-      "name": "Endroit propre",
-      "description": "Démarrez l'opération de nettoyage dans les points sélectionnés sur la carte.",
+      "name": "Tondre un point",
+      "description": "Démarrez la tonte aux points sélectionnés sur la carte.",
       "fields": {
         "points": {
           "name": "Points",
-          "description": "Liste des coordonnées à nettoyer."
+          "description": "Liste des coordonnées à tondre."
         },
         "repeats": {
           "name": "Répétitions",
-          "description": "Nombre de passes de nettoyage pour chaque zone sélectionnée."
+          "description": "Nombre de passes de tonte pour chaque zone sélectionnée."
         },
         "suction_level": {
           "name": "Niveau d'aspiration",
@@ -826,18 +826,18 @@
       }
     },
     "mower_set_cleaning_sequence": {
-      "name": "Définir la séquence de nettoyage",
+      "name": "Définir la séquence de tonte",
       "description": "Définir la séquence de tonte des zones.",
       "fields": {
         "cleaning_sequence": {
-          "name": "Séquence de nettoyage",
-          "description": "Liste d’ID de segment de la séquence de nettoyage."
+          "name": "Séquence de tonte",
+          "description": "Liste d’ID de segment de la séquence de tonte."
         }
       }
     },
     "mower_set_custom_cleaning": {
-      "name": "Définir un nettoyage personnalisé",
-      "description": "Définissez des paramètres de nettoyage personnalisés. ",
+      "name": "Définir une tonte personnalisée",
+      "description": "Définissez des paramètres de tonte personnalisés.",
       "fields": {
         "segment_id": {
           "name": "ID de segment",

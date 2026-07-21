@@ -1,0 +1,40 @@
+name: A1 Pro feature request
+description: Suggest an improvement that can be tested on the Dreame A1 Pro
+title: "[A1 Pro] "
+body:
+  - type: checkboxes
+    id: supported_model
+    attributes:
+      label: Supported mower
+      description: Features for other mower models are not maintained here.
+      options:
+        - label: This request is specifically for the Dreame A1 Pro (`dreame.mower.g2422`).
+          required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: Explain the problem this feature would solve on the A1 Pro.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_behavior
+    attributes:
+      label: Proposed behavior
+      description: Describe how you would like the integration to behave.
+    validations:
+      required: true
+
+  - type: textarea
+    id: device_evidence
+    attributes:
+      label: A1 Pro evidence
+      description: Add app screenshots, redacted logs, or protocol details showing that the A1 Pro supports it.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Note any automation or workaround you already tried.

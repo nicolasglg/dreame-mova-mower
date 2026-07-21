@@ -5,9 +5,9 @@
 
 > ⚠️ **Scope of support**
 >
-> I only own a **Dreame A1 Pro**, so that's the only model I can actively test and support. The integration is reported working on other Dreame mowers by the community (see the [compatibility table](#compatibility) below), but I can't fix model-specific issues for hardware I don't have.
+> This repository supports the **Dreame A1 Pro** (`dreame.mower.g2422`) only. It is the only mower I own and can test responsibly before every release.
 >
-> **MOVA mowers are not supported** — the login flow uses a different regional setup and I have no device to validate against. PRs are welcome if you want to add MOVA support.
+> Unfortunately, I cannot maintain other Dreame or MOVA mower models. Existing code may still happen to work with some of them, but model-specific issues and feature requests will be closed as out of scope. Community forks are very welcome.
 
 **Control your Dreame A1 Pro robotic lawn mower directly from Home Assistant.**
 
@@ -23,6 +23,8 @@ Start, stop, and dock your mower, monitor battery and charging status, and more 
 | State | Sensor | What the mower is doing (mowing, charging, idle, error) |
 | Charging Status | Sensor | Charging or not |
 | Firmware Version | Sensor | Installed firmware |
+| Current Zone ID | Sensor | ID of the zone currently being mowed |
+| Current Zone State | Sensor | Raw A1 Pro state of the active zone |
 | Mowing Sessions | Sensor | Total number of mowing sessions |
 | Total Mowing Time | Sensor | Cumulative mowing time (minutes) |
 | Total Mowed Area | Sensor | Cumulative mowed area (m²) |
@@ -51,20 +53,36 @@ Copy the `custom_components/dreame_mower` folder to your Home Assistant `custom_
 
 Use the same Dreame / Xiaomi account credentials as the Dreamehome app.
 
-## Compatibility
+### Reduce map activity and history
+
+Map cameras update whenever the mower publishes a new map frame. If you do not
+need their history, you can keep the live maps while excluding their state
+changes from Home Assistant's Activity panel and recorder database:
+
+```yaml
+logbook:
+  exclude:
+    entity_globs:
+      - camera.*_map
+      - camera.*_map_*
+
+recorder:
+  exclude:
+    entity_globs:
+      - camera.*_map
+      - camera.*_map_*
+```
+
+Use the exact entity IDs instead of these globs if another integration also
+creates camera entities whose IDs contain `_map`.
+
+## Supported model
 
 | Model | Status | Notes |
 |-------|--------|-------|
 | Dreame A1 Pro (`dreame.mower.g2422`) | Officially supported | Tested by me on every release |
-| Dreame A1 (`dreame.mower.p2255`) | Community | Reported working |
-| Dreame A2 (`dreame.mower.g2408`) | Community | Reported working |
-| Dreame A2 1200 (`dreame.mower.g2568a`) | Community | Reported working |
-| Dreame A3 | Community | Reported working |
-| MOVA (any model) | Not supported | Login flow differs, I have no device to test |
 
-**"Officially supported"** means I test it on every release and fix issues you report. **"Community"** means other users have got it working but I can't debug model-specific issues without the hardware — PRs welcome.
-
-If you try it on a different Dreame model, please [open an issue](https://github.com/nicolasglg/dreame-mower-a1-pro/issues) to let me know how it goes!
+Please open issues only for the A1 Pro and include the model ID shown by the Dreame app or Home Assistant diagnostics.
 
 ## Credits
 

@@ -22,7 +22,7 @@ from homeassistant.components.camera import (
     TOKEN_CHANGE_INTERVAL,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import STATE_UNAVAILABLE, CONTENT_TYPE_MULTIPART
+from homeassistant.const import CONTENT_TYPE_MULTIPART
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -58,6 +58,7 @@ from .dreame.map import (
     DreameMowerMapRenderer,
     DreameMowerMapDataJsonRenderer,
 )
+from .dreame.types import ATTR_FRAME_ID, ATTR_UPDATED
 
 DREAME_TOKEN_CHANGE_INTERVAL: Final = timedelta(minutes=60)
 
@@ -484,7 +485,6 @@ class DreameMowerCameraEntity(DreameMowerEntity, Camera):
         self._default_map = True
         self._proxy_images = {}
         self.map_index = map_index
-        self._state = STATE_UNAVAILABLE
         if self.map_index == 0 and not self.map_data_json:
             self._image = self._renderer.default_map_image
 
@@ -521,13 +521,6 @@ class DreameMowerCameraEntity(DreameMowerEntity, Camera):
         self._last_map_request = 0
         map_data = self._map_data
         if map_data and self.device.cloud_connected and (self.map_index > 0 or self.device.status.located):
-            if map_data.last_updated:
-                self._state = datetime.fromtimestamp(int(map_data.last_updated))
-            elif map_data.timestamp_ms:
-                self._state = datetime.fromtimestamp(int(map_data.timestamp_ms / 1000))
-            else:
-                self._state = datetime.now()
-
             if self.map_index > 0:
                 if self._map_name != map_data.custom_name:
                     self._map_name = map_data.custom_name
@@ -557,7 +550,6 @@ class DreameMowerCameraEntity(DreameMowerEntity, Camera):
             self._error = self.device.status.error
         else:
             self.update()
-            self._state = STATE_UNAVAILABLE
         self.async_write_ha_state()
 
     async def async_camera_image(self, width: int | None = None, height: int | None = None) -> bytes | None:
@@ -632,10 +624,6 @@ class DreameMowerCameraEntity(DreameMowerEntity, Camera):
         map_data = self._map_data
         if map_data and self.device.cloud_connected and (self.map_index > 0 or self.device.status.located):
             self._device_active = self.device.status.active
-            if map_data.last_updated:
-                self._state = datetime.fromtimestamp(int(map_data.last_updated))
-            elif map_data.timestamp_ms:
-                self._state = datetime.fromtimestamp(int(map_data.timestamp_ms / 1000))
 
             if (
                 self.map_index == 0
@@ -661,7 +649,6 @@ class DreameMowerCameraEntity(DreameMowerEntity, Camera):
                     )
                 )
         elif not self._default_map:
-            self._state = STATE_UNAVAILABLE
             self._image = self._default_map_image
             self._default_map = True
             self._frame_id = -1
@@ -845,11 +832,6 @@ class DreameMowerCameraEntity(DreameMowerEntity, Camera):
         return 0.25
 
     @property
-    def state(self) -> str:
-        """Return the status of the map."""
-        return self._state
-
-    @property
     def available(self) -> bool:
         """Return True if entity is available."""
         return True
@@ -866,9 +848,22 @@ class DreameMowerCameraEntity(DreameMowerEntity, Camera):
 
     @property
     def extra_state_attributes(self) -> Dict[str, Any]:
-        if not self.map_data_json:
+        map_data = self._map_data
+        if self.map_data_json:
+            # Keep map version changes in recorder-excluded attributes. A map
+            # timestamp used as the camera state creates a new Activity entry
+            # for every frame even though the camera itself stays streaming.
+            attributes = {}
+            if map_data:
+                if map_data.last_updated:
+                    attributes[ATTR_UPDATED] = datetime.fromtimestamp(int(map_data.last_updated))
+                elif map_data.timestamp_ms:
+                    attributes[ATTR_UPDATED] = datetime.fromtimestamp(int(map_data.timestamp_ms / 1000))
+                if map_data.frame_id is not None:
+                    attributes[ATTR_FRAME_ID] = map_data.frame_id
+            return attributes
+        else:
             attributes = None
-            map_data = self._map_data
             if (
                 map_data
                 and self.device.cloud_connected

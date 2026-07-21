@@ -5,9 +5,9 @@
     "@nicolasglg"
   ],
   "config_flow": true,
-  "documentation": "https://github.com/nicolasglg/dreame-mova-mower",
+  "documentation": "https://github.com/nicolasglg/dreame-mower-a1-pro",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/nicolasglg/dreame-mova-mower/issues",
+  "issue_tracker": "https://github.com/nicolasglg/dreame-mower-a1-pro/issues",
   "requirements": [
     "pillow",
     "numpy",
@@ -18,5 +18,5 @@
     "py-mini-racer",
     "paho-mqtt"
   ],
-  "version": "1.8.7"
+  "version": "1.8.8"
 }

@@ -272,7 +272,7 @@
           "returning_install_mop": "Returning to install mop",
           "returning_remove_mop": "Returning to remove mop",
           "water_check": "Water checking",
-          "clean_add_water": "Mowing and adding water",
+          "clean_add_water": "Cleaning and adding water",
           "washing_paused": "Washing paused",
           "auto_emptying": "Auto-Emptying",
           "remote_control": "Remote controlling",
@@ -506,7 +506,7 @@
           "drying": "Drying",
           "paused": "Paused",
           "returning": "Returning to wash",
-          "clean_add_water": "Mowing and adding water",
+          "clean_add_water": "Cleaning and adding water",
           "adding_water": "Adding water"
         }
       },
@@ -555,8 +555,8 @@
           "partial_paused": "Partial mowing paused",
           "summon": "Summon mowing",
           "summon_paused": "Summon mowing paused",
-          "water_stain": "Water stain mowing",
-          "water_stain_paused": "Water stain mowing paused"
+          "water_stain": "Water stain cleaning",
+          "water_stain_paused": "Water stain cleaning paused"
         }
       }
     }

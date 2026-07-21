@@ -1,0 +1,67 @@
+name: A1 Pro bug report
+description: Report a reproducible problem with the Dreame A1 Pro integration
+title: "[A1 Pro] "
+body:
+  - type: checkboxes
+    id: supported_model
+    attributes:
+      label: Supported mower
+      description: This repository is maintained for one mower model only.
+      options:
+        - label: I confirm that my mower is a Dreame A1 Pro (`dreame.mower.g2422`).
+          required: true
+
+  - type: input
+    id: model_id
+    attributes:
+      label: Model ID
+      description: Copy the exact model ID from diagnostics or the Dreame app.
+      placeholder: dreame.mower.g2422
+    validations:
+      required: true
+
+  - type: input
+    id: integration_version
+    attributes:
+      label: Integration version
+      placeholder: 1.8.8
+    validations:
+      required: true
+
+  - type: input
+    id: home_assistant_version
+    attributes:
+      label: Home Assistant version
+      placeholder: 2026.7.0
+    validations:
+      required: true
+
+  - type: input
+    id: firmware_version
+    attributes:
+      label: A1 Pro firmware version
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the problem, what you expected, and how to reproduce it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Remove tokens, passwords, coordinates, and other private data.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional context
+      description: Add screenshots or diagnostics if they help explain the issue.

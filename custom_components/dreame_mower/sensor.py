@@ -293,20 +293,14 @@ SENSORS: tuple[DreameMowerSensorEntityDescription, ...] = (
         name="Current Zone ID",
         icon="mdi:map-marker-radius",
         value_fn=lambda value, device: device.current_zone_id,
-        attrs_fn=lambda device: {
-            "zone_state": device.current_zone_state,
-            "raw": device.current_zone_raw,
-        },
+        attrs_fn=lambda device: {"zone_state": device.current_zone_state},
     ),
     DreameMowerSensorEntityDescription(
         key="current_zone_state",
         name="Current Zone State",
         icon="mdi:state-machine",
         value_fn=lambda value, device: device.current_zone_state,
-        attrs_fn=lambda device: {
-            "zone_id": device.current_zone_id,
-            "raw": device.current_zone_raw,
-        },
+        attrs_fn=lambda device: {"zone_id": device.current_zone_id},
     ),
     DreameMowerSensorEntityDescription(
         key="firmware_version",
