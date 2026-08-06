@@ -516,8 +516,27 @@ class DreameMowerDevice:
 
         return changed
 
+    def _request_current_zone(self) -> None:
+        """Hydrate the active A1 Pro mowing zone from Dreame cloud storage."""
+        try:
+            result = self._protocol.cloud.get_properties("2.56")
+        except Exception as ex:
+            _LOGGER.debug("Current zone cloud property request failed: %s", ex)
+            return
+
+        for param in result or []:
+            if not isinstance(param, dict) or param.get("key") != "2.56":
+                continue
+            value = param.get("value")
+            if isinstance(value, str):
+                try:
+                    value = json.loads(value)
+                except (TypeError, ValueError):
+                    continue
+            self._update_current_zone({"siid": 2, "piid": 56, "value": value})
+
     def _update_current_zone(self, param: dict[str, Any]) -> None:
-        """Update the active A1 Pro mowing zone from a cloud event."""
+        """Update the active A1 Pro mowing zone from a cloud event or property read."""
         if not isinstance(param, dict):
             return
         if param.get("siid") != 2 or param.get("piid") != 56:
@@ -1660,6 +1679,8 @@ class DreameMowerDevice:
             self._dirty_ai_data = {}
             try:
                 self._request_properties()
+                if self.status.started:
+                    self._request_current_zone()
             except Exception as ex:
                 _LOGGER.warning(
                     "Initial property request failed (MQTT will provide updates): %s", ex)
@@ -2430,6 +2451,8 @@ class DreameMowerDevice:
 
             if not self._protocol.dreame_cloud or force_request_properties:
                 self._request_properties(properties)
+                if force_request_properties and self.status.started:
+                    self._request_current_zone()
             elif self.status.map_backup_status:
                 self._request_properties([DreameMowerProperty.MAP_BACKUP_STATUS])
             elif self.status.map_recovery_status:

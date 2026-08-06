@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.10
+
+- Keep the A1 Pro state, charging status, and battery sensors registered when
+  the initial cloud property response is incomplete.
+- Restore the current mowing zone from Dreame cloud storage after Home
+  Assistant starts or reconnects during an active mowing task.
+
 ## 1.8.9
 
 - Fix A1 Pro zone mowing by using the native mower task API instead of the
