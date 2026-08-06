@@ -63,3 +63,13 @@ def test_connect_device_hydrates_current_zone_after_initial_properties():
 
 def test_forced_update_rehydrates_current_zone_after_reconnect():
     assert "_request_current_zone" in _method_calls("update")
+
+
+def test_current_zone_name_uses_the_name_loaded_from_the_dreame_map():
+    device = object.__new__(DreameMowerDevice)
+    device.current_zone_id = 2
+    device.status = SimpleNamespace(
+        current_segments={2: SimpleNamespace(name="Allée")}
+    )
+
+    assert device.current_zone_name == "Allée"
