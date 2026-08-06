@@ -73,6 +73,9 @@ SENSORS: tuple[DreameMowerSensorEntityDescription, ...] = (
     DreameMowerSensorEntityDescription(
         property_key=DreameMowerProperty.STATE,
         icon="mdi:robot-mower",
+        # The first cloud response can be partial. STATE is a core A1 Pro
+        # property and may arrive through MQTT only after platform setup.
+        exists_fn=lambda description, device: True,
     ),
     DreameMowerSensorEntityDescription(
         property_key=DreameMowerProperty.STATUS,
@@ -111,12 +114,16 @@ SENSORS: tuple[DreameMowerSensorEntityDescription, ...] = (
     DreameMowerSensorEntityDescription(
         property_key=DreameMowerProperty.CHARGING_STATUS,
         icon="mdi:home-lightning-bolt",
+        # Keep the entity registered when initial property discovery is partial.
+        exists_fn=lambda description, device: True,
     ),
     DreameMowerSensorEntityDescription(
         property_key=DreameMowerProperty.BATTERY_LEVEL,
         device_class=SensorDeviceClass.BATTERY,
         native_unit_of_measurement=UNIT_PERCENT,
         state_class=SensorStateClass.MEASUREMENT,
+        # Keep the entity registered when initial property discovery is partial.
+        exists_fn=lambda description, device: True,
         attrs_fn=lambda device: {
             "icon": icon_for_battery_level(
                 battery_level=device.status.battery_level,
