@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Fix A1 Pro zone mowing by using the native mower task API instead of the
+  vacuum-derived `START_CUSTOM` segment payload.
+
 ## 1.8.8
 
 - Limit maintained hardware support to the Dreame A1 Pro
