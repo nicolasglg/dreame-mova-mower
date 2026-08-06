@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.8.9
 
 - Fix A1 Pro zone mowing by using the native mower task API instead of the
   vacuum-derived `START_CUSTOM` segment payload.
