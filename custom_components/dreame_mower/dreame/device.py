@@ -3104,6 +3104,43 @@ class DreameMowerDevice:
         if not isinstance(selected_segments, list):
             selected_segments = [selected_segments]
 
+        # The A1 Pro uses the native mower task API for named map zones. The
+        # generic START_CUSTOM/"selects" payload is inherited from vacuums and
+        # is rejected by dreame.mower.g2422.
+        if self.info and self.info.model == "dreame.mower.g2422":
+            try:
+                zone_ids = [int(segment_id) for segment_id in selected_segments]
+            except (TypeError, ValueError):
+                raise InvalidActionException(
+                    f"Invalid A1 Pro zone ids: {selected_segments}"
+                ) from None
+
+            if not zone_ids or any(zone_id <= 0 for zone_id in zone_ids):
+                raise InvalidActionException(
+                    f"Invalid A1 Pro zone ids: {selected_segments}"
+                )
+
+            self.schedule_update(10, True)
+            result = self._protocol.action(
+                2,
+                50,
+                [{"m": "a", "p": 0, "o": 102, "d": {"region": zone_ids}}],
+            )
+            if not result or (
+                isinstance(result, dict)
+                and result.get("code") not in (None, 0)
+            ):
+                _LOGGER.error(
+                    "Send A1 Pro zone mowing failed for zones %s: %s",
+                    zone_ids,
+                    result,
+                )
+                self.schedule_update(1, True)
+                return None
+
+            _LOGGER.info("Send A1 Pro zone mowing for zones %s", zone_ids)
+            return result
+
         if cleaning_times is None or cleaning_times == "":
             cleaning_times = 1
 
