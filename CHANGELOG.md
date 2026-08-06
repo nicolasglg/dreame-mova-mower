@@ -5,7 +5,8 @@
 - Keep the A1 Pro state, charging status, and battery sensors registered when
   the initial cloud property response is incomplete.
 - Restore the current mowing zone from Dreame cloud storage after Home
-  Assistant starts or reconnects during an active mowing task.
+  Assistant starts or reconnects during an active mowing task, including the
+  zone name configured in the Dreame app/map.
 
 ## 1.8.9
 

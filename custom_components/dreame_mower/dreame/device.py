@@ -535,6 +535,15 @@ class DreameMowerDevice:
                     continue
             self._update_current_zone({"siid": 2, "piid": 56, "value": value})
 
+    @property
+    def current_zone_name(self) -> str | None:
+        """Return the app/map name of the active mowing zone."""
+        if self.current_zone_id is None:
+            return None
+        segments = self.status.current_segments or {}
+        segment = segments.get(self.current_zone_id)
+        return segment.name if segment else None
+
     def _update_current_zone(self, param: dict[str, Any]) -> None:
         """Update the active A1 Pro mowing zone from a cloud event or property read."""
         if not isinstance(param, dict):
