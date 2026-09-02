@@ -35,6 +35,7 @@ def test_request_current_zone_hydrates_from_dreame_cloud_stored_property():
     device.current_zone_state = None
     device._ready = True
     device._update_callback = Mock()
+    device.status = SimpleNamespace(docked=False, charging=False, returning=False)
     device._protocol = SimpleNamespace(
         cloud=SimpleNamespace(
             get_properties=Mock(

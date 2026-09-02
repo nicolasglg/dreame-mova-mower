@@ -564,13 +564,24 @@ class DreameMowerDevice:
         if not zones:
             return
 
+        if self.status.docked or self.status.charging or self.status.returning:
+            # Some A1 Pro devices keep sending zone events after docking or
+            # while charging/returning to base; ignore them instead of
+            # letting a stale zone reappear once the task has ended.
+            self._reset_current_zone()
+            return
+
         # Full-area mowing reports the active zone with state 0; a single-zone
         # task has also been observed with state 4. Pending zones use -1.
         active_zone = next((zone for zone in zones if zone[1] == 0), None)
         if active_zone is None:
             active_zone = next((zone for zone in zones if zone[1] == 4), None)
         if active_zone is None:
-            active_zone = next((zone for zone in zones if zone[1] != -1), zones[0])
+            # No zone is currently active (only pending "-1" or completed
+            # zones remain); clear the stale current zone instead of
+            # guessing which one to report.
+            self._reset_current_zone()
+            return
 
         zone_id, zone_state = active_zone[0], active_zone[1]
         if self.current_zone_id == zone_id and self.current_zone_state == zone_state:
